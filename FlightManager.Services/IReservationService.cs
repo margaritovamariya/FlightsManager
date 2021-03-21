@@ -8,12 +8,14 @@ namespace FlightManager.Services
     public interface IReservationService
     {
         //Create
-        void Create(string firstName, string secondName, string familyName, long pin, string telephoneNumber, string nationality, string ticketType);
+        void Create(string firstName, string secondName, string familyName, long pin, 
+                    string telephoneNumber, string nationality, string ticketType, int uniquePlaneNumber);
 
         //Read
-        IEnumerable<ReservationViewModel> GetFlightReservations(int flightId);
+        IEnumerable<ReservationViewModel> GetFlightReservations(int uniquePlaneNumber);
 
         //Update
-        IEnumerable<ReservationViewModel> UpdateReservation(int reservationId);
+        void UpdateReservation(int reservationId, string firstName, string secondName, string familyName, long pin,
+                                string telephoneNumber, string nationality, string ticketType);
     }
 }
