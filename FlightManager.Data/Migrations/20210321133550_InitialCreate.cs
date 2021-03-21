@@ -66,11 +66,18 @@ namespace FlightManager.Data.Migrations
                     PIN = table.Column<long>(type: "bigint", nullable: false),
                     TelephoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Nationality = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TicketTypeId = table.Column<int>(type: "int", nullable: false)
+                    TicketTypeId = table.Column<int>(type: "int", nullable: false),
+                    FlightId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Reservations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Reservations_Flights_FlightId",
+                        column: x => x.FlightId,
+                        principalTable: "Flights",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Reservations_TicketTypes_TicketTypeId",
                         column: x => x.TicketTypeId,
@@ -106,33 +113,9 @@ namespace FlightManager.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "ReservationFlights",
-                columns: table => new
-                {
-                    ReservationId = table.Column<int>(type: "int", nullable: false),
-                    FlightId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ReservationFlights", x => new { x.ReservationId, x.FlightId });
-                    table.ForeignKey(
-                        name: "FK_ReservationFlights_Flights_FlightId",
-                        column: x => x.FlightId,
-                        principalTable: "Flights",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ReservationFlights_Reservations_ReservationId",
-                        column: x => x.ReservationId,
-                        principalTable: "Reservations",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
-                name: "IX_ReservationFlights_FlightId",
-                table: "ReservationFlights",
+                name: "IX_Reservations_FlightId",
+                table: "Reservations",
                 column: "FlightId");
 
             migrationBuilder.CreateIndex(
@@ -149,7 +132,7 @@ namespace FlightManager.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ReservationFlights");
+                name: "Reservations");
 
             migrationBuilder.DropTable(
                 name: "Users");
@@ -158,13 +141,10 @@ namespace FlightManager.Data.Migrations
                 name: "Flights");
 
             migrationBuilder.DropTable(
-                name: "Reservations");
+                name: "TicketTypes");
 
             migrationBuilder.DropTable(
                 name: "UserRoles");
-
-            migrationBuilder.DropTable(
-                name: "TicketTypes");
         }
     }
 }

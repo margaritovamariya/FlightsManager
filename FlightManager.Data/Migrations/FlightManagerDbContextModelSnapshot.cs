@@ -83,6 +83,9 @@ namespace FlightManager.Data.Migrations
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(30)");
 
+                    b.Property<int>("FlightId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nationality")
                         .HasColumnType("nvarchar(max)");
 
@@ -103,24 +106,11 @@ namespace FlightManager.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FlightId");
+
                     b.HasIndex("TicketTypeId");
 
                     b.ToTable("Reservations");
-                });
-
-            modelBuilder.Entity("FlightManager.Models.ReservationFlight", b =>
-                {
-                    b.Property<int>("ReservationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FlightId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ReservationId", "FlightId");
-
-                    b.HasIndex("FlightId");
-
-                    b.ToTable("ReservationFlights");
                 });
 
             modelBuilder.Entity("FlightManager.Models.TicketType", b =>
@@ -213,32 +203,21 @@ namespace FlightManager.Data.Migrations
 
             modelBuilder.Entity("FlightManager.Models.Reservation", b =>
                 {
+                    b.HasOne("FlightManager.Models.Flight", "Flight")
+                        .WithMany("Reservations")
+                        .HasForeignKey("FlightId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("FlightManager.Models.TicketType", "TicketType")
                         .WithMany("Reservations")
                         .HasForeignKey("TicketTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("TicketType");
-                });
-
-            modelBuilder.Entity("FlightManager.Models.ReservationFlight", b =>
-                {
-                    b.HasOne("FlightManager.Models.Flight", "Flight")
-                        .WithMany("ReservationFlights")
-                        .HasForeignKey("FlightId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FlightManager.Models.Reservation", "Reservation")
-                        .WithMany("ReservationFlights")
-                        .HasForeignKey("ReservationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Flight");
 
-                    b.Navigation("Reservation");
+                    b.Navigation("TicketType");
                 });
 
             modelBuilder.Entity("FlightManager.Models.User", b =>
@@ -254,12 +233,7 @@ namespace FlightManager.Data.Migrations
 
             modelBuilder.Entity("FlightManager.Models.Flight", b =>
                 {
-                    b.Navigation("ReservationFlights");
-                });
-
-            modelBuilder.Entity("FlightManager.Models.Reservation", b =>
-                {
-                    b.Navigation("ReservationFlights");
+                    b.Navigation("Reservations");
                 });
 
             modelBuilder.Entity("FlightManager.Models.TicketType", b =>

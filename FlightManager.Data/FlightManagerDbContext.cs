@@ -20,7 +20,6 @@ namespace FlightManager.Data
 
         public DbSet<Flight> Flights { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
-        public DbSet<ReservationFlight> ReservationFlights { get; set; }
         public DbSet<TicketType> TicketTypes { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }

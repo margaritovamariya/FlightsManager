@@ -7,11 +7,6 @@ namespace FlightManager.Models
 {
     public class Reservation
     {
-        public Reservation()
-        {
-            this.ReservationFlights = new HashSet<ReservationFlight>();
-        }
-
         [Required]
         public int Id { get; set; }
 
@@ -40,7 +35,8 @@ namespace FlightManager.Models
         public int TicketTypeId { get; set; }
         public virtual TicketType TicketType { get; set; }
 
-        //ReservationFlight relation
-        public virtual ICollection<ReservationFlight> ReservationFlights { get; set; }
+        //Flight relation
+        public int FlightId { get; set; }
+        public Flight Flight { get; set; }
     }
 }

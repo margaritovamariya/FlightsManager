@@ -9,7 +9,7 @@ namespace FlightManager.Models
     {
         public Flight()
         {
-            this.ReservationFlights = new HashSet<ReservationFlight>();
+            this.Reservations = new HashSet<Reservation>();
         }
 
         //PlaneId
@@ -50,7 +50,6 @@ namespace FlightManager.Models
         [Range(GlobalConstants.BusinessClassMinCapacity, GlobalConstants.BusinessClassMaxCapacity)]
         public int BusinessClassCapacity { get; set; }
 
-        //ReservationFlight relation
-        public virtual ICollection<ReservationFlight> ReservationFlights { get; set; }
+        public ICollection<Reservation> Reservations { get; set; }
     }
 }
