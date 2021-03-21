@@ -1,0 +1,65 @@
+﻿body {
+    background-image: url(/Materials/Plane2.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+.bring-to-front {
+    z-index: 1;
+}
+
+.BlueSideBlock {
+    width: 200px;
+    background: linear-gradient( 0.25turn, #ffffff, #fdf9f8);
+    color: black;
+    position: absolute;
+    display: flex;
+    flex: auto;
+    left: 0px;
+    top: 0px;
+    z-index: -1;
+    height: 100%;
+}
+
+.navbar-brandCustom {
+    display: inline-block;
+    color: black;
+    padding-top: .3125rem;
+    padding-bottom: .3125rem;
+    font-size: 1.25rem;
+    line-height: inherit;
+    margin-right: 5rem;
+    z-index: 1;
+}
+
+.containerCustom {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+}
+
+.navbar > .containerCustom, .navbar > .container-fluid {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+@media (min-width: 768px) {
+    .containerCustom {
+        max-width: 720px;
+    }
+}
+
+
+@media (min-width: 576px) {
+    .containerCustom {
+        max-width: 540px;
+    }
+}
