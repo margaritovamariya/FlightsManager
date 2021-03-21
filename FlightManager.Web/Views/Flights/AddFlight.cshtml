@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Add Flight";
+}
+<h1>@ViewData["Title"]</h1>
+
+<form method="get" action="/Flights/ShowAddedFlight" class="col-md-6">
+    <div>
+        From: <input name="from" class="form-control" />
+    </div>
+    <hr />
+    <div>
+        To: <input name="to" class="form-control" />
+    </div>
+    <hr />
+    <div>
+        DateTime Take Off: <input name="dateTimeTakeOff" class="form-control" />
+    </div>
+    <hr />
+    <div>
+        Date Time Landing: <input name="dateTimeLanding" class="form-control" />
+    </div>
+    <hr />
+    <div>
+        Plane Type: <input name="planeType" class="form-control" />
+    </div>
+    <hr />
+    <div>
+        Unique Plane Number: <input name="uniquePlaneNumber" class="form-control" />
+    </div>
+    <hr />
+    <div>
+        Pilot Name: <input name="pilotName" class="form-control" />
+    </div>
+    <hr />
+    <div>
+        Passengers Capacity: <input name="passengersCapacity" class="form-control" />
+    </div>
+    <hr />
+    <div>
+        Business Class Capacity: <input name="businessClassCapacity" class="form-control" />
+    </div>
+
+    <input type="submit" class="btn btn-primary float-right" value="Add property" />
+</form>
