@@ -31,7 +31,6 @@
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
     -ms-flex-align: center;
     align-items: center;
     -ms-flex-pack: justify;
@@ -160,7 +159,7 @@
     margin-top: 15px;
     border: 1px solid #8caedb;
     box-shadow: -4px 4px 13px 2px #000000;
-    background-color: #6c757d;
+    background-color: rgb(151 171 199 / 60%);
     border-radius: 23px;
 }
 
@@ -211,15 +210,29 @@
 .column-txt-p {
     margin-left: 10px;
 }
-
+/* Button position and round corners*/
 .btn-absoluteposition {
     border-radius: 15px;
     margin-left: 15px;
 }
 
+/*InputBox*/
 .small-width {
     width: 31px;
     border-color: #1b6ec2;
     border-radius: 16px;
     text-align: center;
+}
+
+/*  Login NavBar */
+
+.CustomFormGroup {
+    white-space: nowrap;
+    font-size: 13px;
+    margin-left: 100px;
+}
+
+.CustomRandomName {
+    position: absolute;
+    right: 20px;
 }
