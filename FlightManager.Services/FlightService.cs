@@ -46,6 +46,10 @@ namespace FlightManager.Services
             {
                 flight.UniquePlaneNumber = uniquePlaneNumber;
             }
+            else
+            {
+                throw new ArgumentException(ExceptionMessages.PlaneWithThisUniqueNumberExist);
+            }
 
             //Pilot name input
             flight.PilotName = pilotName;

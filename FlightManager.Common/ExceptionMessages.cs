@@ -14,5 +14,6 @@ namespace FlightManager.Common
         public const string InvalidTicketType = "Type of this ticked doesn`t exist!";
         public const string NotEnoughAmountOfRegularTickets = "The regular tickets already finished. Try with business class ticket";
         public const string NotEnoughAmountOfBusinessClassTickets = "The Business Class tickets already finished. Try with regullar ticket";
+        public const string PlaneWithThisUniqueNumberExist = "Plane with this unique number already exist! Use another unique number.";
     } 
 }
