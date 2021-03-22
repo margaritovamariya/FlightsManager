@@ -1,3 +1,5 @@
+@model IEnumerable<FlightManager.Services.Models.OutputModels.FlightViewModel>
+
 <div class="text-center ">
     <h1 class="display-4 bring-to-front">FlightManager</h1>
     <p class="bring-to-front">Easy and cheap way to travel around the world</p>
@@ -5,23 +7,18 @@
 
 <div class="BoxForColumns">
     <div class="rowCustom">
-        <div class="column">
-            <h4 class="column-txt-h4">Column 1</h4>
-            <p class="column-txt-p">Some text..</p>
-            <span>  <input type="submit" name="Button" value="Make reservation" class="btn btn-primary btn-absoluteposition">  <input class="form-group small-width" type="text" name="text" value="1" /> </span>  
-        </div>
-        <div class="column">
-            <h4 class="column-txt-h4">Column 1</h4>
-            <p class="column-txt-p">Some text..</p>
-        </div>
-        <div class="column">
-            <h4 class="column-txt-h4">Column 1</h4>
-            <p class="column-txt-p">Some text..</p>
-        </div>
-        <div class="column">
-            <h4 class="column-txt-h4">Column 1</h4>
-            <p class="column-txt-p">Some text..</p>
-        </div>
+        @foreach (var flights in Model)
+        {
+            <div class="column">
+                <h4 class="column-txt-h4">Danni za poleta glavno otkade dokade, data na trugvane.</h4>
+                <p class="column-txt-p">Tip samolt, ime na pilota ,produljitelnost (Reservations: @flights.Reservations.Count())</p>
+                <form action="/Reservations/AddReservation" method="get">
+                    <span>
+                        <input type="submit" name="Button" value="Make reservation" class="btn btn-primary btn-absoluteposition">
+                        <input class="form-group small-width" type="text" name="NumberReservations" value="1" />
+                    </span>
+                </form>
+            </div>
+        }
     </div>
-
 </div>
