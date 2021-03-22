@@ -152,7 +152,7 @@
 .column {
     float: left;
     width: 80%;
-    margin-left: 10%;
+    margin-left: 10.5%;
     margin-right: 10px;
     padding-bottom: 10px;
     margin-bottom: 15px;
@@ -186,7 +186,7 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: none;
 }
 
 /* Handle */
