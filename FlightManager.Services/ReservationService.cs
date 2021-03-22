@@ -75,14 +75,20 @@ namespace FlightManager.Services
                 reservation.Nationality = nationality;
                 reservation.FlightId = flight.Id;
 
-                if (!dbContext.TicketTypes.Any(x => x.Name == ticketType))
+
+                //Check ticket type
+                var ticketTypeEntity = this.dbContext.TicketTypes.FirstOrDefault(x => x.Name == ticketType);
+
+                if (ticketTypeEntity == null)
                 {
-                    reservation.TicketType = new TicketType() { Name = ticketType };
+                    ticketTypeEntity = new TicketType()
+                    {
+                        Name = ticketType
+                    };
                 }
-                else
-                {
-                    reservation.TicketType.Name = ticketType;
-                }
+
+                reservation.TicketType = ticketTypeEntity;
+
             }
             else
             {

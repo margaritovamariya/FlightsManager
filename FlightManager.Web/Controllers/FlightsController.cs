@@ -27,5 +27,11 @@ namespace FlightManager.Web.Controllers
             var flight = this.flightService.GetExactFlight(from, to, dateTimeTakeOff, dateTimeLanding, planeType, uniquePlaneNumber);
             return this.View(flight);
         }
+
+        public IActionResult ShowAllFlights()
+        {
+            var flights = this.flightService.GetAllFlights();
+            return this.View(flights);
+        }
     }
 }
