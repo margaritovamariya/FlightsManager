@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using FlightManager.Services.Models.OutputModels;
 
 namespace FlightManager.Services
 {
     public interface IReservationService
     {
-        void Create(string firstName, string secondName, string familyName, long pin, string telephoneNumber, string nationality,string ticketType);
+        //Create
+        void Create(string firstName, string secondName, string familyName, long pin, 
+                    string telephoneNumber, string nationality, string ticketType, int uniquePlaneNumber);
 
-        void Read();
+        //Read
+        IEnumerable<ReservationViewModel> GetFlightReservations(int uniquePlaneNumber);
 
-        void Update();
-
-        void Delete();
+        //Update
+        void UpdateReservation(int reservationId, string firstName, string secondName, string familyName, long pin,
+                                string telephoneNumber, string nationality, string ticketType);
     }
 }

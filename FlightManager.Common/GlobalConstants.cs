@@ -28,6 +28,8 @@ namespace FlightManager.Common
 
         //TicketType
         public const int TicketTypeMinLength = 3;
+        public const string TicketTypeRegular = "Regular";
+        public const string TicketTypeBusinessClass = "Business Class";
 
         //User
         public const int UsernameMinLength = 3;

@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Add Reservation";
+}
+<h1>@ViewData["Title"]</h1>
+
+<form method="get" action="/Reservations/ShowAddedReservation" class="col-md-6">
+    <div>
+        First Name: <input name="firstName" class="form-control" />
+    </div>
+    <hr />
+    <div>
+        Second dName: <input name="secondName" class="form-control" />
+    </div>
+    <hr />
+    <div>
+        Family Name: <input name="familyName" class="form-control" />
+    </div>
+    <hr />
+    <div>
+        Pin: <input name="pin" class="form-control" />
+    </div>
+    <hr />
+    <div>
+        Telephone Number: <input name="telephoneNumber" class="form-control" />
+    </div>
+    <hr />
+    <div>
+        Nationality: <input name="nationality" class="form-control" />
+    </div>
+    <hr />
+    <label for="ticketType">Choose a Ticket Type:</label>
+    <select id="ticketType" name="ticketType">
+        <option value="Regular">Regular Ticket</option>
+        <option value="Business Class">Business Class Ticket</option>
+    </select>
+    <hr />
+    <div>
+        Unique PlaneNumber: <input name="uniquePlaneNumber" class="form-control" />
+    </div>
+    <input type="submit" class="btn btn-primary float-right" value="Add reservation" />
+</form>
