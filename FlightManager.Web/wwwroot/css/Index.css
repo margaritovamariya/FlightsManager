@@ -228,11 +228,15 @@
 
 .CustomFormGroup {
     white-space: nowrap;
-    font-size: 13px;
+    font-size: 16px;
     margin-left: 100px;
 }
 
 .CustomRandomName {
     position: absolute;
     right: 20px;
+}
+
+.text-size-16 {
+    font-size: 16px;
 }

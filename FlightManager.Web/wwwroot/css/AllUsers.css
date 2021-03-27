@@ -1,0 +1,12 @@
+﻿/* AllUSERS CSS*/
+
+/* Search/Filter Bar */
+#myInput {
+    background-image: url('/Materials/698956-icon-111-search-512.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    font-size: 16px;
+    padding: 12px 20px 12px 60px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+}

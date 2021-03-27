@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Add User";
+}
+<h1 class="text-center">@ViewData["Title"]</h1>
+
+<div class="BoxForColumns">
+    <form asp-action="AddUser" asp-controller="Users" method="post" class="mx-auto text-center col-md-6 form-group">
+        <div class="my-1">
+            <div>
+                Username: <input name="Username" class="form-control " />
+            </div>
+            <hr />
+            <div>
+                Password: <input name="Password" class="form-control" />
+            </div>
+            <hr />
+            <div>
+                E-mail: <input name="Email" class="form-control" />
+            </div>
+            <hr />
+            <div>
+                FirstName: <input name="FirstName" class="form-control" />
+            </div>
+            <hr />
+            <div>
+                FamilyName: <input name="FamilyName" class="form-control" />
+            </div>
+            <hr />
+            <div>
+                PIN: <input name="PIN" class="form-control" />
+            </div>
+            <hr />
+            <div>
+                Address: <input name="Address" class="form-control" />
+            </div>
+            <hr />
+            <div>
+                PhoneNumber: <input name="PhoneNumber" class="form-control" />
+            </div>
+            <input type="submit" class="btn btn-primary my-3" value="Add User" />
+        </div>       
+    </form>
+</div>

@@ -43,5 +43,10 @@ namespace FlightManager.Common
         public const int UserFirstNameMaxLength = 30;
         public const int UserFamilyNameMinLength = 3;
         public const int UserFamilyNameMaxLength = 30;
+
+        //UserRole 
+        public const string Admin = "Admin";
+        public const string Worker = "Worker";
+
     }
 }
