@@ -1,4 +1,7 @@
-@model IEnumerable<FlightManager.Services.Models.OutputModels.FlightViewModel>
+@*@{
+        IEnumerable<FlightManager.Models.Flight>
+          flight = ViewData["Flights"] as IEnumerable<FlightManager.Models.Flight>;
+    }*@
 
 <div class="text-center ">
     <h1 class="display-4 bring-to-front">FlightManager</h1>
@@ -7,15 +10,16 @@
 
 <div class="BoxForColumns">
     <div class="rowCustom">
-        @foreach (var flights in Model)
+        @foreach (var flights in ViewBag.Flights)
         {
             <div class="column">
-                <h4 class="column-txt-h4">Danni za poleta glavno otkade dokade, data na trugvane.</h4>
-                <p class="column-txt-p">Tip samolt, ime na pilota ,produljitelnost (Reservations: @flights.Reservations.Count())</p>
+                <h4 class="column-txt-h4">@flights.Duration za poleta glavno otkade dokade, data na trugvane.</h4>
+                <p class="column-txt-p">Tip samolt, ime na pilota ,produljitelnost (Reservations: @flights.Reservations.Count)</p>
                 <form action="/Reservations/AddReservation" method="get">
                     <span>
                         <input type="submit" name="Button" value="Make reservation" class="btn btn-primary btn-absoluteposition">
-                        <input class="form-group small-width" type="text" name="NumberReservations" value="1" />
+                        <input class="form-group small-width" type="text" name="id" value="1" />
+                        <input class="hide" type="text" name="UPN" value="@flights.UniquePlaneNumber" />
                     </span>
                 </form>
             </div>

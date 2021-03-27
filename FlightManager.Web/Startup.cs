@@ -1,7 +1,10 @@
 using FlightManager.Data;
+using FlightManager.Models;
 using FlightManager.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,16 +29,27 @@ namespace FlightManager.Web
             {
                 options.UseSqlServer(this.Configuration["ConnectionString"]);
             });
+            //Add Identity
+            services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddEntityFrameworkStores<FlightManagerDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.AddMvc();
+            services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddRazorPages();
+
 
             //Here we register the services which we already created in FlightManager.Services
             services.AddTransient<IFlightService, FlightService>();
             services.AddTransient<IReservationService, ReservationService>();
-            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddTransient<IUserServices, UserServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -52,12 +66,14 @@ namespace FlightManager.Web
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }

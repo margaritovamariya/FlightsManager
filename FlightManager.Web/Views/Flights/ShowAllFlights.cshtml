@@ -1,6 +1,4 @@
-﻿@model IEnumerable<FlightManager.Services.Models.OutputModels.FlightViewModel>
-
-<div class="text-center">
+﻿<div class="text-center">
     <h1>Check Flights</h1>
 </div>
 
@@ -13,7 +11,7 @@
         </tr>
     </thead>
 
-    @foreach (var flight in Model)
+    @foreach (var flight in ViewBag.Flights)
     {
         <tr>
             <td>@flight.UniquePlaneNumber</td>

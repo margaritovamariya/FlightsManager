@@ -16,7 +16,7 @@ namespace FlightManager.Web.Controllers
             this.reservationService = reservationService;
         }
 
-        public IActionResult AddReservation()
+        public IActionResult AddReservation(int id, int planeNumber)
         {
             return View();
         }
@@ -26,7 +26,8 @@ namespace FlightManager.Web.Controllers
         {
             this.reservationService.Create(firstName, secondName, familyName, pin, telephoneNumber, nationality, ticketType, uniquePlaneNumber);
             var reservations = this.reservationService.GetFlightReservations(uniquePlaneNumber);
-            return this.View(reservations);
+            ViewBag.Reservations = reservations;
+            return this.View();
         }
     }
 }

@@ -1,0 +1,49 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using FlightManager.Models;
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@model FlightManager.Web.Areas.Identity.Pages.Account.LoginModel
+
+@if (SignInManager.IsSignedIn(User))
+{
+<ul class=" navbar-nav  flex-grow-1">
+    <li class="nav-item">
+        <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+    </li>
+    <li class="nav-item">
+        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+            <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+        </form>
+    </li>
+</ul>
+  
+}
+else
+{
+    <form id="Form-Foo" method="post" class="navbar-nav navbar-right">
+        @Html.AntiForgeryToken()
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="row">
+            <div style="margin: 0rem 1rem">
+                <input class="form-control form-control-sm" type="Text" name="Username" id="username" placeholder="Username" />
+                <span asp-validation-for="Input.Username" class="text-danger"></span>
+            </div>
+            <div>
+                <input class="form-control form-control-sm form-inline" type="password" name="Password" id="password" placeholder="Password"  />
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+            <div style="margin: 0rem 1rem">
+                <button id="login" type="button" class="btn form-inline">Login</button>
+            </div>
+        </div>
+    </form>
+
+
+    @*<li class="nav-item">
+            <a class="nav-link text-dark" id="login"href="/Identity/Account/Login">Login</a>
+        </li>*@
+}
+

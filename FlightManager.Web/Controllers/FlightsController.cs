@@ -25,13 +25,15 @@ namespace FlightManager.Web.Controllers
                  uniquePlaneNumber, pilotName, passengersCapacity, businessClassCapacity);
 
             var flight = this.flightService.GetExactFlight(from, to, dateTimeTakeOff, dateTimeLanding, planeType, uniquePlaneNumber);
-            return this.View(flight);
+            ViewBag.Flights = flight;
+            return this.View();
         }
 
         public IActionResult ShowAllFlights()
         {
             var flights = this.flightService.GetAllFlights();
-            return this.View(flights);
+            ViewBag.Flights = flights;
+            return this.View();
         }
     }
 }

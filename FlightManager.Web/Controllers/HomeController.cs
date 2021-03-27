@@ -13,22 +13,21 @@ namespace FlightManager.Web.Controllers
     public class HomeController : Controller
     {
         private readonly IFlightService flightService;
+        private readonly IUserServices userServices;
 
-        public HomeController(IFlightService flightService)
+        public HomeController(IFlightService flightService, IUserServices userServices)
         {
             this.flightService = flightService;
+            this.userServices = userServices;
         }
 
         public IActionResult Index()
         {
-            var flights = this.flightService.GetAllFlights();
-            return View(flights);
-        }
-
-        public IActionResult Privacy()
-        {
+            userServices.SeedUserRoles();
+            ViewBag.Flights = this.flightService.GetAllFlights();
             return View();
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

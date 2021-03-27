@@ -1,4 +1,4 @@
-﻿@model IEnumerable<FlightManager.Services.Models.OutputModels.ReservationViewModel>
+﻿
 
 <div class="text-center">
     <h1>Check Reservations</h1>
@@ -16,7 +16,7 @@
         <th>Unique PlaneNumber</th>
     </tr>
 
-    @foreach (var reservation in Model)
+    @foreach (var reservation in ViewBag.Reservations)
     {
         <tr>
             <td>@reservation.FirstName</td>

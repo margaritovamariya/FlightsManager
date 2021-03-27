@@ -1,0 +1,93 @@
+﻿@model FlightManager.Services.Models.OutputModels.UserIndexViewModel
+
+@{ ViewData["Title"] = "All Users"; }
+
+<h1 class="mx-3">@ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="AddUser" class="btn btn-primary mx-3">Create New User</a>
+</p>
+<input id="myInput" class="mx-3" type="text" />
+<table id="myTable" class="table bg-white">
+    <thead>
+        <tr>
+            <th>
+                Username
+            </th>
+            <th>
+                FirstName
+            </th>
+            <th>
+                FamilyName
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                PhoneNumber
+            </th>
+            <th>
+                Address
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.ReturnedUsers)
+        {
+              <tr>
+                  <td>
+                     @item.UserName
+                  </td>
+                  <td>
+                     @item.FirstName
+                  </td>
+                  <td>
+                     @item.FamilyName
+                  </td>
+                  <td>
+                     @item.Email
+                  </td>
+                  <td>
+                     @item.PhoneNumber
+                  </td>
+                  <td>
+                     @item.Address
+                  </td>
+                  <td>
+                     <a asp-action="EditUser" asp-route-id="@item.Id">Edit</a> |
+                      <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                  </td>
+              </tr>
+        }
+    </tbody>
+</table>
+<ul class="pagination">
+    @for (var i = 1; i <= ViewBag.ReturnedUsersPagers; i++)
+    {
+<li class="page-item @(i == ViewBag.ReturnedUsersPagersCurrentPage ? "active" : "")">
+    <a asp-route-Pager.CurrentPage="@i" class="page-link">@i</a>
+</li>
+}
+</ul>
+
+<script>
+    function filterTable(event) {
+        var filter = event.target.value.toUpperCase();
+        var rows = document.querySelector("#myTable tbody").rows;
+
+        for (var i = 0; i < rows.length; i++) {
+            var firstCol = rows[i].cells[0].textContent.toUpperCase();
+            var secondCol = rows[i].cells[1].textContent.toUpperCase();
+            var thirdCol = rows[i].cells[2].textContent.toUpperCase();
+            var fourthCol = rows[i].cells[3].textContent.toUpperCase();
+            if (firstCol.indexOf(filter) > -1 || secondCol.indexOf(filter) > -1 || thirdCol.indexOf(filter) > -1 || fourthCol.indexOf(filter) > -1) {
+                rows[i].style.display = "";
+            } else {
+                rows[i].style.display = "none";
+            }
+        }
+    }
+
+    document.querySelector('#myInput').addEventListener('keyup', filterTable, false);
+</script>

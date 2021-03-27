@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity;
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -7,6 +9,8 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/Index.css" />
+    <link rel="stylesheet" href="~/css/AllUsers.css" />
+
 </head>
 <body>
     <header>
@@ -17,28 +21,43 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse CustomRandomName">
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse justify-content-between CustomRandomName">                  
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Login</a>
-                        </li>
+                        <partial name="_LoginPartial" />
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Flights" asp-action="ShowAllFlights">Flights</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Flights" asp-action="AddFlight">Add Flight</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Reservations" asp-action="AddReservation">Add Reservation</a>
-                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="AddUser">Add User</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="AllUsers">All Users</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Reservations" asp-action="AddReservation">Add Reservation</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Flights" asp-action="ShowAllFlights">Flights</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Flights" asp-action="AddFlight">Add Flight</a>
+                                </li>
+                            }
+                            @if (User.IsInRole("Worker"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Flights" asp-action="ShowAllFlights">Flights</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Flights" asp-action="AddFlight">Add Flight</a>
+                                </li>
+                            }
+                        }
                     </ul>
-                    <form class="CustomFormGroup">
-                        <input type="text" name="Text" placeholder="Username" />
-                        <input type="password" name="Password" placeholder="Password" />
-                    </form>
 
                 </div>
             </div>
@@ -54,6 +73,31 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        $('#login').on('click', function () {
+
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            var data = { "Username": username, "Password": password };
+            $.ajax({
+
+                type: "POST",
+                url: "/Identity/Account/Login?handler=Test",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("XSRF-TOKEN",
+                        $('input:hidden[name="__RequestVerificationToken"]').val());
+                },
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(data),
+                dataType: "json",
+                success: function (response) {
+
+                }
+            });
+
+        });
+    </script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using System.Text;
 using FlightManager.Common;
 using FlightManager.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace FlightManager.Data
 {
-    public class FlightManagerDbContext : DbContext
+    public class FlightManagerDbContext : IdentityDbContext<User, IdentityRole, string>
     {
         public FlightManagerDbContext()
         {
         }
 
-        public FlightManagerDbContext(DbContextOptions options)
+        public FlightManagerDbContext(DbContextOptions<FlightManagerDbContext> options)
             :base(options)
         {
         }
@@ -21,8 +23,6 @@ namespace FlightManager.Data
         public DbSet<Flight> Flights { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<TicketType> TicketTypes { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<UserRole> UserRoles { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -36,6 +36,7 @@ namespace FlightManager.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder
                 .ApplyConfigurationsFromAssembly(typeof(FlightManagerDbContext).Assembly);
         }

@@ -12,7 +12,7 @@ namespace FlightManager.Services
 {
     public class FlightService : IFlightService
     {
-        private FlightManagerDbContext dbContext;
+        private  readonly FlightManagerDbContext dbContext;
 
         public FlightService(FlightManagerDbContext context)
         {
