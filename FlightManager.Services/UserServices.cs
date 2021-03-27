@@ -21,6 +21,9 @@ namespace FlightManager.Services
             this.dbContext = context;
         }
 
+        /// <summary>
+        /// Seed-ване на базата данни при първоначално стартиране.
+        /// </summary>
         //Seed Admin
         public async void SeedUserRoles()
         {
@@ -68,6 +71,11 @@ namespace FlightManager.Services
             await dbContext.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Създаване на потребител асинхронно.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="Password"></param>
         //Create User
         public async void Create(User user, string Password)
         {
@@ -122,36 +130,10 @@ namespace FlightManager.Services
             dbContext.SaveChanges();
         }
 
-        //public Task UpdateAsync(User user)
-        //{
-        //    var HiddenValues = dbContext.Users.FirstOrDefault(x => x.Id == user.Id);
-        //    var context = userStore.Context as FlightManagerDbContext;
-
-        //    User user1 = new User
-        //    {
-        //        Id = user.Id,
-        //        UserName = user.UserName,
-        //        NormalizedUserName = user.UserName,
-        //        Email = user.Email,
-        //        NormalizedEmail = user.Email,
-        //        FirstName = user.FirstName,
-        //        FamilyName = user.FamilyName,
-        //        PIN = HiddenValues.PIN,
-        //        Address = user.Address,
-        //        PhoneNumber = user.PhoneNumber,
-        //        PasswordHash = HiddenValues.PasswordHash
-        //    };
-
-        //    HiddenValues = user1;
-
-        //    context.Users.Attach(HiddenValues);
-
-        //    context.Entry(HiddenValues).State = EntityState.Modified;
-
-        //    return context.SaveChangesAsync();
-
-        //}
-
+        /// <summary>
+        /// Променяне на данните на дадения потребител.
+        /// </summary>
+        /// <param name="user"></param>
         public void Update(User user)
         {
             var user1 = dbContext.Users.FirstOrDefault(x => x.Id == user.Id);
@@ -165,25 +147,14 @@ namespace FlightManager.Services
             user1.Address = user.Address;
             user1.PhoneNumber = user.PhoneNumber;
 
-            //User user1 = new User
-            //{
-            //    Id = user.Id,
-            //    UserName = user.UserName,
-            //    NormalizedUserName = user.UserName,
-            //    Email = user.Email,
-            //    NormalizedEmail = user.Email,
-            //    FirstName = user.FirstName,
-            //    FamilyName = user.FamilyName,
-            //    PIN = HiddenValues.Result.PIN,
-            //    Address = user.Address,
-            //    PhoneNumber = user.PhoneNumber,
-            //    PasswordHash = HiddenValues.Result.PasswordHash
-            //};
-
             dbContext.Users.Update(user1);
             dbContext.SaveChanges();
         }
 
+        /// <summary>
+        /// Изтриване на дадения потребител.
+        /// </summary>
+        /// <param name="Id"></param>
         public void Delete(string Id)
         {
             User user = dbContext.Users.Find(Id);
@@ -191,6 +162,11 @@ namespace FlightManager.Services
             dbContext.SaveChanges();
         }
 
+        /// <summary>
+        /// Показване на лист от потребители на страницата.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns> UserIndexViewModel модел </returns>
         //Render List of Users on the page
         public async Task<UserIndexViewModel> ReturnPages(UserIndexViewModel model)
         {
@@ -215,6 +191,12 @@ namespace FlightManager.Services
             return model;
         }
 
+
+        /// <summary>
+        /// Намира потребител по дадено ид.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns> Връща намерения потребител </returns>
         //Find User By Id
         public async Task<UserEditViewModel> FindAsync(string id)
         {

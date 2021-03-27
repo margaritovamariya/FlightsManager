@@ -16,6 +16,12 @@ namespace FlightManager.Web.Controllers
             this.userServices = userServices;
         }
 
+
+        /// <summary>
+        /// Взима всички потребители и ги страницира.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns> Изгледа на страницата и всички потребители подредени в таблица </returns>
         //GET: User/AllUsers
         public async Task<IActionResult> AllUsers(UserIndexViewModel model)
         {
@@ -27,12 +33,22 @@ namespace FlightManager.Web.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Гет заявка за добавяне на потребители.
+        /// </summary>
+        /// <returns> Изгледа на страницата </returns>
         //GET: User/AddUser
         public IActionResult AddUser()
         {
             return View();
         }
 
+        /// <summary>
+        /// Пост зачвка за добавяне на потребители.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="Password"></param>
+        /// <returns> Изгледа на страницата </returns>
         //POST: User/AddUser
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -42,6 +58,11 @@ namespace FlightManager.Web.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Гет заявка за промяна на даден потребител.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns> Изгледа на страницата и потребителя който ще се променя </returns>
         //Get: User/EditUser/4
         public async Task<IActionResult> EditUser(string id)
         {
@@ -60,6 +81,11 @@ namespace FlightManager.Web.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Пост заявка за промяна на дадения потребител.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns> Връща обратно към AllUsers изгледа </returns>
         //Post: User/EditUser/4
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -72,6 +98,11 @@ namespace FlightManager.Web.Controllers
             return RedirectToAction(nameof(AllUsers));
         }
 
+        /// <summary>
+        /// Гет заявка за изтриване на дадения потребител.
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns> Връща обратно към AllUsers изгледа </returns>
         //Get: User/Delete/4
         public async Task<IActionResult> Delete(string Id)
         {
