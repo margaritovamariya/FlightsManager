@@ -73,31 +73,6 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script>
-        $('#login').on('click', function () {
-
-            var username = document.getElementById("username").value;
-            var password = document.getElementById("password").value;
-
-            var data = { "Username": username, "Password": password };
-            $.ajax({
-
-                type: "POST",
-                url: "/Identity/Account/Login?handler=Test",
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("XSRF-TOKEN",
-                        $('input:hidden[name="__RequestVerificationToken"]').val());
-                },
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(data),
-                dataType: "json",
-                success: function (response) {
-
-                }
-            });
-
-        });
-    </script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
