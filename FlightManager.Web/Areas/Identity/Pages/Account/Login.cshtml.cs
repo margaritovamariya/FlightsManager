@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using FlightManager.Common;
 using FlightManager.Models;
 using FlightManager.Services.Models.OutputModels;
+using System;
 
 namespace FlightManager.Web.Areas.Identity.Pages.Account
 {
@@ -62,20 +63,19 @@ namespace FlightManager.Web.Areas.Identity.Pages.Account
             ReturnUrl = returnUrl;
         }
 
-        public async Task<IActionResult> OnPostAsync([FromBody] LoginViewModel viewModel, string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            Input.Username = viewModel.Username;
-            Input.Password = viewModel.Password;
-            Input.RememberMe = viewModel.RememberMe;
+            //Input.Username = viewModel.Username;
+            //Input.Password = viewModel.Password;
+            //Input.RememberMe = viewModel.RememberMe;
 
-            returnUrl ??= Url.Content("~/");
+            returnUrl ??= Url.Content("~/Users/AllUsers");
 
             // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, set lockoutOnFailure: true
             var result = await _signInManager.PasswordSignInAsync(Input.Username, Input.Password, Input.RememberMe, lockoutOnFailure: false);
             if (result.Succeeded)
             {
-                return LocalRedirect(returnUrl);
+                return RedirectToAction(nameof(Index));
             }
             else
             {

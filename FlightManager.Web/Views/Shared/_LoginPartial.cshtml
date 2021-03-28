@@ -22,7 +22,7 @@
 }
 else
 {
-    <form id="Form-Foo" method="post" class="navbar-nav navbar-right">
+    <form id="Form-Foo"  asp-area="Identity" asp-page="/Account/Login" method="post" class="navbar-nav navbar-right">
         @Html.AntiForgeryToken()
 
         <div asp-validation-summary="All" class="text-danger"></div>
@@ -36,14 +36,9 @@ else
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
             <div style="margin: 0rem 1rem">
-                <button id="login" type="button" class="btn form-inline">Login</button>
+                <button id="login" type="submit" class="btn form-inline">Login</button>
             </div>
         </div>
     </form>
-
-
-    @*<li class="nav-item">
-            <a class="nav-link text-dark" id="login"href="/Identity/Account/Login">Login</a>
-        </li>*@
 }
 
