@@ -38,6 +38,7 @@ namespace FlightManager.Web.Controllers
         /// </summary>
         /// <returns> Изгледа на страницата </returns>
         //GET: User/AddUser
+        [HttpGet]
         public IActionResult AddUser()
         {
             return View();
@@ -64,6 +65,7 @@ namespace FlightManager.Web.Controllers
         /// <param name="id"></param>
         /// <returns> Изгледа на страницата и потребителя който ще се променя </returns>
         //Get: User/EditUser/4
+        [HttpGet]
         public async Task<IActionResult> EditUser(string id)
         {
             if (id == null)
@@ -104,6 +106,7 @@ namespace FlightManager.Web.Controllers
         /// <param name="Id"></param>
         /// <returns> Връща обратно към AllUsers изгледа </returns>
         //Get: User/Delete/4
+        [HttpGet]
         public async Task<IActionResult> Delete(string Id)
         {
             userServices.Delete(Id);

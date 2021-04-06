@@ -16,11 +16,15 @@ namespace FlightManager.Web.Controllers
             this.reservationService = reservationService;
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult AddReservation(int id, int planeNumber)
         {
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult ShowAddedReservation(string firstName, string secondName, string familyName, long pin,
             string telephoneNumber, string nationality, string ticketType, int uniquePlaneNumber)
         {
