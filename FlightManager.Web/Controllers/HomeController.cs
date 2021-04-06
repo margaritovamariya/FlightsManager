@@ -21,6 +21,7 @@ namespace FlightManager.Web.Controllers
             this.userServices = userServices;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             userServices.SeedUserRoles();
@@ -28,7 +29,7 @@ namespace FlightManager.Web.Controllers
             return View();
         }
 
-
+        [HttpGet]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
