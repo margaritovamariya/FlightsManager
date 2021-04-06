@@ -13,11 +13,14 @@ namespace FlightManager.Web.Controllers
             this.flightService = flightService;
         }
 
+        [HttpGet]
         public IActionResult AddFlight()
         {
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult ShowAddedFlight(string from, string to, DateTime dateTimeTakeOff, DateTime dateTimeLanding, string planeType,
                                                 int uniquePlaneNumber, string pilotName, int passengersCapacity, int businessClassCapacity)
         {
@@ -29,6 +32,7 @@ namespace FlightManager.Web.Controllers
             return this.View();
         }
 
+        [HttpGet]
         public IActionResult ShowAllFlights()
         {
             var flights = this.flightService.GetAllFlights();
