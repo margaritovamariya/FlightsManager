@@ -3,7 +3,7 @@
 }
 <h1>@ViewData["Title"]</h1>
 
-<form method="get" action="/Reservations/ShowAddedReservation" class="col-md-6">
+<form method="post" asp-action="AddReservation" asp-controller="Reservations" class="col-md-6">
     <div>
         First Name: <input name="firstName" class="form-control" />
     </div>
@@ -18,6 +18,10 @@
     <hr />
     <div>
         Pin: <input name="pin" class="form-control" />
+    </div>
+    <hr />
+    <div>
+        Email: <input name="email" class="form-control" />
     </div>
     <hr />
     <div>

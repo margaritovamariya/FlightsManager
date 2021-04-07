@@ -3,7 +3,7 @@
 }
 <h1>@ViewData["Title"]</h1>
 
-<form method="get" action="/Flights/ShowAddedFlight" class="col-md-6">
+<form method="post" asp-action="AddFlight" asp-controller="Flights" class="col-md-6">
     <div>
         From: <input name="from" class="form-control" />
     </div>

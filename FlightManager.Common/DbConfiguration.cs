@@ -6,6 +6,6 @@ namespace FlightManager.Common
 {
     public class DbConfiguration
     {
-        public static string DefConnectionString = @"Server=DESKTOP-ASP7MDT;Database=FlightManager;Integrated Security=true";
+        public static string DefConnectionString = @"Server=DESKTOP-UAKA86K\SQLEXPRESS;Database=FlightManager;Integrated Security=true";
     }
 }

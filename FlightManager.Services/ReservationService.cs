@@ -18,7 +18,7 @@ namespace FlightManager.Services
             this.dbContext = context;
         }
 
-        public void Create(string firstName, string secondName, string familyName, long pin, string telephoneNumber,
+        public void Create(string firstName, string secondName, string familyName, long pin, string email, string telephoneNumber,
             string nationality, string ticketType, int uniquePlaneNumber)
         {
             var flight = dbContext.Flights.FirstOrDefault(x => x.UniquePlaneNumber == uniquePlaneNumber);
@@ -27,7 +27,7 @@ namespace FlightManager.Services
             {
                 if (flight.PassengersCapacity > 0)
                 {
-                    var reservation = AddReservation(firstName, secondName, familyName, pin, telephoneNumber, nationality, ticketType, uniquePlaneNumber, flight);
+                    var reservation = AddReservation(firstName, secondName, familyName, pin, email, telephoneNumber, nationality, ticketType, uniquePlaneNumber, flight);
                     flight.PassengersCapacity -= 1;
                     this.dbContext.Reservations.Add(reservation);
                 }
@@ -41,7 +41,7 @@ namespace FlightManager.Services
             {
                 if (flight.BusinessClassCapacity > 0)
                 {
-                    var reservation = AddReservation(firstName, secondName, familyName, pin, telephoneNumber, nationality, ticketType, uniquePlaneNumber, flight);
+                    var reservation = AddReservation(firstName, secondName, familyName, pin, email, telephoneNumber, nationality, ticketType, uniquePlaneNumber, flight);
                     flight.BusinessClassCapacity -= 1;
                     this.dbContext.Reservations.Add(reservation);
                 }
@@ -59,7 +59,7 @@ namespace FlightManager.Services
             this.dbContext.SaveChanges();
         }
 
-        private Reservation AddReservation(string firstName, string secondName, string familyName, long pin, string telephoneNumber,
+        private Reservation AddReservation(string firstName, string secondName, string familyName, long pin, string email, string telephoneNumber,
                                     string nationality, string ticketType, int uniquePlaneNumber, Flight flight)
         {
             var reservation = new Reservation();
@@ -71,6 +71,7 @@ namespace FlightManager.Services
                 reservation.SecondName = secondName;
                 reservation.FamilyName = familyName;
                 reservation.PIN = pin;
+                reservation.Email = email;
                 reservation.TelephoneNumber = telephoneNumber;
                 reservation.Nationality = nationality;
                 reservation.FlightId = flight.Id;
@@ -94,7 +95,6 @@ namespace FlightManager.Services
             {
                 throw new ArgumentNullException(ExceptionMessages.InvalidFlight);
             }
-
             return reservation;
         }
 

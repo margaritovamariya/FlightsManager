@@ -8,7 +8,7 @@ namespace FlightManager.Services
     public interface IReservationService
     {
         //Create
-        void Create(string firstName, string secondName, string familyName, long pin, 
+        void Create(string firstName, string secondName, string familyName, long pin, string email, 
                     string telephoneNumber, string nationality, string ticketType, int uniquePlaneNumber);
 
         //Read

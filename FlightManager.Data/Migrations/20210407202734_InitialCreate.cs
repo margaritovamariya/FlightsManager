@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FlightManager.Data.Migrations
 {
-    public partial class Initial : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -200,6 +200,7 @@ namespace FlightManager.Data.Migrations
                     SecondName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     FamilyName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     PIN = table.Column<long>(type: "bigint", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TelephoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Nationality = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TicketTypeId = table.Column<int>(type: "int", nullable: false),

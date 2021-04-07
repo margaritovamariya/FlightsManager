@@ -25,10 +25,37 @@ namespace FlightManager.Services
         /// Seed-ване на базата данни при първоначално стартиране.
         /// </summary>
         //Seed Admin
-        public async void SeedUserRoles()
+        public void SeedRoles()
         {
             string[] roles = { "Admin", "Worker" };
 
+            if (!dbContext.Roles.Any(r => r.Name == "admin"))
+            {
+                foreach (string role in roles)
+                {
+                    IdentityRole identityRole = new IdentityRole()
+                    {
+                        Name = role,
+                        NormalizedName = role.ToLower()
+                    };
+
+                    if (!dbContext.Roles.Any(r => r.Name == role))
+                    {
+                        dbContext.Roles.Add(identityRole);
+                    }
+                }
+            }
+            dbContext.SaveChanges();
+        }
+
+        /// <summary>
+        /// Seed-ване на базата данни при първоначално стартиране.
+        /// </summary>
+        //Seed Admin
+        public void SeedUserRoles()
+        {
+            var getAdminId = dbContext.Roles.FirstOrDefault(x => x.Name == "Admin");
+            var Roles = new IdentityUserRole<string>();
             var user = new User()
             {
                 UserName = "Owner",
@@ -45,30 +72,18 @@ namespace FlightManager.Services
                 SecurityStamp = Guid.NewGuid().ToString()
             };
 
-            if (!dbContext.Roles.Any(r => r.Name == "admin"))
-            {
-                foreach (string role in roles)
-                {
-                    var roleStore = new RoleStore<IdentityRole>(dbContext);
-
-                    if (!dbContext.Roles.Any(r => r.Name == role))
-                    {
-                        await roleStore.CreateAsync(new IdentityRole(role));
-                    }
-                }
-            }
-
             if (!dbContext.Users.Any(u => u.UserName == user.UserName))
             {
+                Roles.RoleId = getAdminId.Id;
+                Roles.UserId = user.Id;
                 var password = new PasswordHasher<User>();
                 var hashed = password.HashPassword(user, "password");
                 user.PasswordHash = hashed;
-                var userStore = new UserStore<User>(dbContext);
-                await userStore.CreateAsync(user);
-                await userStore.AddToRoleAsync(user, "admin");
+                dbContext.Users.Add(user);
+                dbContext.UserRoles.Add(Roles);
             }
 
-            await dbContext.SaveChangesAsync();
+            dbContext.SaveChanges();
         }
 
         /// <summary>

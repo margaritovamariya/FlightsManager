@@ -71,6 +71,10 @@ namespace FlightManager.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("FamilyName")
                         .IsRequired()
                         .HasMaxLength(30)
@@ -175,10 +179,6 @@ namespace FlightManager.Data.Migrations
 
                     b.Property<long>("PIN")
                         .HasColumnType("bigint");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");

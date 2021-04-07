@@ -6,8 +6,8 @@ namespace FlightManager.Services
 {
     public interface IUserServices
     {
+        public void SeedRoles();
         public void SeedUserRoles();
-
         public void Create(User user, string Password);
 
         public void Update(User user);

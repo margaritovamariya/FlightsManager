@@ -13,22 +13,23 @@ namespace FlightManager.Web.Controllers
             this.flightService = flightService;
         }
 
+        [HttpGet]
         public IActionResult AddFlight()
         {
             return View();
         }
 
-        public IActionResult ShowAddedFlight(string from, string to, DateTime dateTimeTakeOff, DateTime dateTimeLanding, string planeType,
+        [HttpPost]
+        public IActionResult AddFlight(string from, string to, DateTime dateTimeTakeOff, DateTime dateTimeLanding, string planeType,
                                                 int uniquePlaneNumber, string pilotName, int passengersCapacity, int businessClassCapacity)
         {
-            this.flightService.Create(from, to, dateTimeTakeOff, dateTimeLanding, planeType,
-                 uniquePlaneNumber, pilotName, passengersCapacity, businessClassCapacity);
+            flightService.Create(from, to, dateTimeTakeOff, dateTimeLanding, planeType,
+                                                 uniquePlaneNumber, pilotName, passengersCapacity, businessClassCapacity);
 
-            var flight = this.flightService.GetExactFlight(from, to, dateTimeTakeOff, dateTimeLanding, planeType, uniquePlaneNumber);
-            ViewBag.Flights = flight;
-            return this.View();
+            return Redirect("ShowAllFlights");
         }
 
+        [HttpGet]
         public IActionResult ShowAllFlights()
         {
             var flights = this.flightService.GetAllFlights();
@@ -37,3 +38,6 @@ namespace FlightManager.Web.Controllers
         }
     }
 }
+
+
+

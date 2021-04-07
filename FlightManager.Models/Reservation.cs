@@ -26,6 +26,9 @@ namespace FlightManager.Models
         [MinLength(GlobalConstants.ClientPinMinLength)]
         public long PIN { get; set; }
 
+        [Required]
+        public string Email { get; set; }
+
         public string TelephoneNumber { get; set; }
 
         public string Nationality { get; set; }

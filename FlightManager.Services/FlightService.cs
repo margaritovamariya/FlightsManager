@@ -117,6 +117,7 @@ namespace FlightManager.Services
                     SecondName = r.SecondName,
                     FamilyName = r.FamilyName,
                     PIN = r.PIN,
+                    Email = r.Email,
                     Nationality = r.Nationality,
                     TelephoneNumber = r.TelephoneNumber,
                     TicketType = r.TicketType.Name
