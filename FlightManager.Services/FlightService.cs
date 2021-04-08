@@ -32,7 +32,7 @@ namespace FlightManager.Services
             }
 
             //DateTime input
-            if (dateTimeTakeOff < dateTimeLanding)
+            if (dateTimeTakeOff > dateTimeLanding)
             {
                 flight.DateTimeTakeOff = dateTimeTakeOff;
                 flight.DateTimeLanding = dateTimeLanding;
@@ -106,11 +106,15 @@ namespace FlightManager.Services
 
         private static Expression<Func<Flight, FlightViewModel>> MapToFlightViewModel()
         {
+
             return x => new FlightViewModel()
             {
+                From = x.From,
+                To = x.To,
+                PlaneType = x.PlaneType,
                 UniquePlaneNumber = x.UniquePlaneNumber,
                 DateTimeTakeOff = x.DateTimeTakeOff,
-                Duration = x.DateTimeLanding - x.DateTimeTakeOff,
+                Duration = x.DateTimeTakeOff - x.DateTimeLanding,
                 Reservations = x.Reservations.Select(r => new ReservationViewModel()
                 {
                     FirstName = r.FirstName,

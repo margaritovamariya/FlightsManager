@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlightManager.Data", "FlightManager.Data\FlightManager.Data.csproj", "{647912FE-D6A8-4D34-872B-2DC74981C2D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlightManager.Data", "FlightManager.Data\FlightManager.Data.csproj", "{647912FE-D6A8-4D34-872B-2DC74981C2D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlightManager.Models", "FlightManager.Models\FlightManager.Models.csproj", "{90F8EC8A-CB74-4570-8385-D0723643A978}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlightManager.Models", "FlightManager.Models\FlightManager.Models.csproj", "{90F8EC8A-CB74-4570-8385-D0723643A978}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlightManager.Services", "FlightManager.Services\FlightManager.Services.csproj", "{9F9C5D42-DB00-4431-976A-881FB2D61FDF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlightManager.Services", "FlightManager.Services\FlightManager.Services.csproj", "{9F9C5D42-DB00-4431-976A-881FB2D61FDF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlightManager.Web", "FlightManager.Web\FlightManager.Web.csproj", "{71267EA4-B51D-485E-BC01-4C564559CFA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlightManager.Web", "FlightManager.Web\FlightManager.Web.csproj", "{71267EA4-B51D-485E-BC01-4C564559CFA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlightManager.Common", "FlightManager.Common\FlightManager.Common.csproj", "{01D1F42E-35B2-41A4-A3F2-5E9CACFBFAD4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlightManager.Common", "FlightManager.Common\FlightManager.Common.csproj", "{01D1F42E-35B2-41A4-A3F2-5E9CACFBFAD4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlightsManager.Services.Tests", "FlightsManager.Services.Tests\FlightsManager.Services.Tests.csproj", "{A8590BA5-C31D-42B7-B334-D4BFF3204516}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{01D1F42E-35B2-41A4-A3F2-5E9CACFBFAD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01D1F42E-35B2-41A4-A3F2-5E9CACFBFAD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01D1F42E-35B2-41A4-A3F2-5E9CACFBFAD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8590BA5-C31D-42B7-B334-D4BFF3204516}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8590BA5-C31D-42B7-B334-D4BFF3204516}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8590BA5-C31D-42B7-B334-D4BFF3204516}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8590BA5-C31D-42B7-B334-D4BFF3204516}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

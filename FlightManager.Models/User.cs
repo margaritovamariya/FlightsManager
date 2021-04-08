@@ -14,9 +14,10 @@ namespace FlightManager.Models
         [MinLength(GlobalConstants.UserFamilyNameMinLength)]
         public string FamilyName { get; set; }
 
-        [Required]
-        public long PIN { get; set; }
+        [Required(ErrorMessage = "The PIN field is required")]
+        public long? PIN { get; set; }
 
+        [Required]
         public string Address { get; set; }
     }
 }

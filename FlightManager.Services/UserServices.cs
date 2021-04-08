@@ -134,7 +134,7 @@ namespace FlightManager.Services
         /// Променяне на данните на дадения потребител.
         /// </summary>
         /// <param name="user"></param>
-        public void Update(User user)
+        public void Update(UserEditViewModel user)
         {
             var user1 = dbContext.Users.FirstOrDefault(x => x.Id == user.Id);
 
@@ -198,22 +198,11 @@ namespace FlightManager.Services
         /// <param name="id"></param>
         /// <returns> Връща намерения потребител </returns>
         //Find User By Id
-        public async Task<UserEditViewModel> FindAsync(string id)
+        public async Task<User> FindAsync(string id)
         {
             User user = await dbContext.Users.FindAsync(id);
 
-            UserEditViewModel model = new UserEditViewModel
-            {
-                Id = user.Id,
-                UserName = user.UserName,
-                FirstName = user.FirstName,
-                FamilyName = user.FamilyName,
-                Email = user.Email,
-                Address = user.Address,
-                PhoneNumber = user.PhoneNumber
-            };
-
-            return model;
+            return user;
         }
 
     }

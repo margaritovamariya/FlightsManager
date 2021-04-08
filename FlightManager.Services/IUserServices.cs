@@ -10,13 +10,13 @@ namespace FlightManager.Services
 
         public void Create(User user, string Password);
 
-        public void Update(User user);
+        public void Update(UserEditViewModel user);
 
         public void Delete(string Id);
 
         public Task<UserIndexViewModel> ReturnPages(UserIndexViewModel model);
 
-        public Task<UserEditViewModel> FindAsync(string id);
+        public Task<User> FindAsync(string id);
 
     }
 }

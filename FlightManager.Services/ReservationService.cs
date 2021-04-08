@@ -11,7 +11,7 @@ namespace FlightManager.Services
 {
     public class ReservationService : IReservationService
     {
-        private FlightManagerDbContext dbContext;
+        private readonly FlightManagerDbContext dbContext;
 
         public ReservationService(FlightManagerDbContext context)
         {

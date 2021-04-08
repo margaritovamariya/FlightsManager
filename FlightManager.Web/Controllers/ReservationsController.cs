@@ -16,8 +16,10 @@ namespace FlightManager.Web.Controllers
             this.reservationService = reservationService;
         }
 
-        public IActionResult AddReservation(int id, int planeNumber)
+        public IActionResult AddReservation(int id, int UPN)
         {
+            ViewBag.id = id;
+            ViewBag.UPN = UPN;
             return View();
         }
 
