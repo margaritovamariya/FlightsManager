@@ -25,10 +25,10 @@ namespace FlightManager.Web.Controllers
         //GET: User/AllUsers
         public async Task<IActionResult> AllUsers(UserIndexViewModel model)
         {
-            var ReturnModel = userServices.ReturnPages(model);
-            ViewBag.ReturnedUsers = ReturnModel.Result.Items;
-            ViewBag.ReturnedUsersPagers = ReturnModel.Result.Pager.PagesCount;
-            ViewBag.ReturnedUsersPagersCurrentPage = ReturnModel.Result.Pager.CurrentPage;
+            var ReturnModel = await userServices.ReturnPages(model);
+            ViewBag.ReturnedUsers = ReturnModel.Items;
+            ViewBag.ReturnedUsersPagers = ReturnModel.Pager.PagesCount;
+            ViewBag.ReturnedUsersPagersCurrentPage = ReturnModel.Pager.CurrentPage;
 
             return View();
         }
@@ -44,7 +44,7 @@ namespace FlightManager.Web.Controllers
         }
 
         /// <summary>
-        /// Пост зачвка за добавяне на потребители.
+        /// Пост заявка за добавяне на потребители.
         /// </summary>
         /// <param name="user"></param>
         /// <param name="Password"></param>
@@ -54,7 +54,16 @@ namespace FlightManager.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddUser(User user, string Password)
         {
-            userServices.Create(user, Password);
+            if (ModelState.IsValid)
+            {
+                userServices.Create(user, Password);
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "One or more fields are empty.");
+                return View();
+            }
+
             return View();
         }
 
@@ -62,7 +71,7 @@ namespace FlightManager.Web.Controllers
         /// Гет заявка за промяна на даден потребител.
         /// </summary>
         /// <param name="id"></param>
-        /// <returns> Изгледа на страницата и потребителя който ще се променя </returns>
+        /// <returns> Изгледа на страницата и потребителя който ще се променя, а ако няма такъв потребител връща HTTP 404 </returns>
         //Get: User/EditUser/4
         public async Task<IActionResult> EditUser(string id)
         {
@@ -89,7 +98,7 @@ namespace FlightManager.Web.Controllers
         //Post: User/EditUser/4
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditUser(User user)
+        public async Task<IActionResult> EditUser(UserEditViewModel user)
         {
             if (ModelState.IsValid)
             {

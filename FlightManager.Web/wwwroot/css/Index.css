@@ -1,9 +1,10 @@
-﻿body {
+﻿﻿body {
     background-image: url(/Materials/Plane2.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     z-index: 1;
 }
+
 
 .bring-to-front {
     z-index: 1;
@@ -131,7 +132,6 @@
 }
 
 /* LIST FOR FLIGHTS */
-
 
 .BoxForColumns {
     width: 60%;
