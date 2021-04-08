@@ -35,11 +35,11 @@ namespace FlightManager.Web.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "Username is required")]
             [MinLength(GlobalConstants.UsernameMinLength)]
             public string Username { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Password is required")]
             [MinLength(GlobalConstants.PasswordMinLength)]
             [DataType(DataType.Password)]
             public string Password { get; set; }
@@ -65,23 +65,26 @@ namespace FlightManager.Web.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            //Input.Username = viewModel.Username;
-            //Input.Password = viewModel.Password;
-            //Input.RememberMe = viewModel.RememberMe;
-
-            returnUrl ??= Url.Content("~/Users/AllUsers");
-
-            // This doesn't count login failures towards account lockout
-            var result = await _signInManager.PasswordSignInAsync(Input.Username, Input.Password, Input.RememberMe, lockoutOnFailure: false);
-            if (result.Succeeded)
+            Input.RememberMe = false;
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                returnUrl ??= Url.Content("~/Users/AllUsers");
+
+                // This doesn't count login failures towards account lockout
+                var result = await _signInManager.PasswordSignInAsync(Input.Username, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    return RedirectToAction(nameof(Index));
+                }
             }
-            else
-            {
-                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                return Page();
-            }
+
+            //If we reach here something wrong happend, return page.
+            return RedirectToAction(nameof(Index));
         }
     }
 }

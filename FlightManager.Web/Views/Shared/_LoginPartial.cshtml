@@ -25,7 +25,7 @@ else
     <form id="Form-Foo"  asp-area="Identity" asp-page="/Account/Login" method="post" class="navbar-nav navbar-right">
         @Html.AntiForgeryToken()
 
-        <div asp-validation-summary="All" class="text-danger"></div>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="row">
             <div style="margin: 0rem 1rem">
                 <input class="form-control form-control-sm" type="Text" name="Username" id="username" placeholder="Username" />

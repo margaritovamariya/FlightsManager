@@ -13,16 +13,26 @@
         @foreach (var flights in ViewBag.Flights)
         {
             <div class="column">
-                <h4 class="column-txt-h4">@flights.Duration za poleta glavno otkade dokade, data na trugvane.</h4>
-                <p class="column-txt-p">Tip samolt, ime na pilota ,produljitelnost (Reservations: @flights.Reservations.Count)</p>
+                <h4 class="column-txt-h4">From: @flights.From To: @flights.To | Leaves on: @flights.DateTimeTakeOff</h4>
+                <p class="column-txt-p">@flights.PlaneType | Flight Duration:@flights.Duration (Reservations: @flights.Reservations.Count)</p>
                 <form action="/Reservations/AddReservation" method="get">
                     <span>
-                        <input type="submit" name="Button" value="Make reservation" class="btn btn-primary btn-absoluteposition">
-                        <input class="form-group small-width" type="text" name="id" value="1" />
-                        <input class="hide" type="text" name="UPN" value="@flights.UniquePlaneNumber" />
+                        <input type="submit" name="Button" value="Make reservation for" class="btn btn-primary btn-absoluteposition">
+                        <input type="number" class="form-group small-width text-center" name="id" value="1" min="1" max="15" />
+                        <input class="hide" hidden type="text" name="UPN" value="@flights.UniquePlaneNumber" />
                     </span>
                 </form>
             </div>
         }
     </div>
 </div>
+
+
+<style>
+    /* arrows in input number */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+</style>
