@@ -8,9 +8,10 @@ In order to start the system on our pc, first you need to change the Connection 
 
 Now you are ready to start the system.
 ## Contributors
-<a href = "https://github.com/Tanu-N-Prabhu/Python/graphs/contributors">
-  <img src = "https://contrib.rocks/image?repo = GitHub_username/repository_name"/>
+<a href="https://avatars.githubusercontent.com/u/60791605?v=4">
+  <img src="https://opencollective.com/html-react-parser/contributors.svg?width=890&button=false">
 </a>
+
 
 ## License 
 [MIT](https://choosealicense.com/licenses/mit/)
