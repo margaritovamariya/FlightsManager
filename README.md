@@ -9,7 +9,7 @@ In order to start the system on our pc, first you need to change the Connection 
 Now you are ready to start the system.
 ## Contributors
 <a href="https://avatars.githubusercontent.com/u/60791605?v=4">
-  <img src="https://opencollective.com/html-react-parser/contributors.svg?width=890&button=false">
+  <img src="https://avatars.githubusercontent.com/u/60791605?v=4">
 </a>
 
 
