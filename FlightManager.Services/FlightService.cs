@@ -18,7 +18,21 @@ namespace FlightManager.Services
         {
             this.dbContext = context;
         }
-        
+
+        /// <summary>
+        /// Създава полет
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <param name="dateTimeTakeOff"></param>
+        /// <param name="dateTimeLanding"></param>
+        /// <param name="planeType"></param>
+        /// <param name="uniquePlaneNumber"></param>
+        /// <param name="pilotName"></param>
+        /// <param name="passengersCapacity"></param>
+        /// <param name="businessClassCapacity"></param>
+       
+
         public void Create(string from, string to, DateTime dateTimeTakeOff, DateTime dateTimeLanding, string planeType,
             int uniquePlaneNumber, string pilotName, int passengersCapacity, int businessClassCapacity)
         {
@@ -79,6 +93,17 @@ namespace FlightManager.Services
             this.dbContext.SaveChanges();
         }
 
+        /// <summary>
+        /// Взима определен полет по дадените параметри
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <param name="dateTimeTakeOff"></param>
+        /// <param name="dateTimeLanding"></param>
+        /// <param name="planeType"></param>
+        /// <param name="uniquePlaneNumber"></param>
+        /// <returns>полета</returns>
+
         public IEnumerable<FlightViewModel> GetExactFlight(string from, string to, DateTime dateTimeTakeOff,
                                                           DateTime dateTimeLanding, string planeType, int uniquePlaneNumber)
         {
@@ -95,6 +120,12 @@ namespace FlightManager.Services
             return flights;
         }
 
+        /// <summary>
+        /// Взимат се всички полети
+        /// </summary>
+        /// <returns> всички полети </returns>
+        /// 
+
         public IEnumerable<FlightViewModel> GetAllFlights()
         {
             var flights = dbContext.Flights
@@ -104,6 +135,11 @@ namespace FlightManager.Services
             return flights;
         }
 
+        /// <summary>
+        /// Функция, която се извиква от горния метод
+        /// </summary>
+        /// <returns>лист от flightviewmodel </returns>
+       
         private static Expression<Func<Flight, FlightViewModel>> MapToFlightViewModel()
         {
             return x => new FlightViewModel()
@@ -128,6 +164,19 @@ namespace FlightManager.Services
             };
         }
 
+        /// <summary>
+        /// Ъпдейтват се полета
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <param name="dateTimeTakeOff"></param>
+        /// <param name="dateTimeLanding"></param>
+        /// <param name="planeType"></param>
+        /// <param name="uniquePlaneNumber"></param>
+        /// <param name="pilotName"></param>
+        /// <param name="passengersCapacity"></param>
+        /// <param name="businessClassCapacity"></param>
+        
         public void UpdateFlight(string from, string to, DateTime dateTimeTakeOff, DateTime dateTimeLanding, string planeType,
                                 int uniquePlaneNumber, string pilotName, int passengersCapacity, int businessClassCapacity)
         {
@@ -151,6 +200,16 @@ namespace FlightManager.Services
             this.dbContext.SaveChanges();
         }
 
+        /// <summary>
+        /// Изтрива се полета
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <param name="dateTimeTakeOff"></param>
+        /// <param name="dateTimeLanding"></param>
+        /// <param name="planeType"></param>
+        /// <param name="uniquePlaneNumber"></param>
+        
         public void DeleteFlight(string from, string to, DateTime dateTimeTakeOff, DateTime dateTimeLanding, string planeType,
             int uniquePlaneNumber)
         {
