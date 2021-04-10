@@ -14,7 +14,13 @@ namespace FlightManager.Web.Controllers
             this.reservationService = reservationService;
             this.flightService = flightService;
         }
-
+        /// <summary>
+        /// Гет заявка за показване на регистрация по дадени id, upn.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="UPN"></param>
+        /// <returns> Изгледа на страницата </returns>
+       
 
         [HttpGet]
         public IActionResult AddReservation(int id, int UPN)
@@ -28,6 +34,19 @@ namespace FlightManager.Web.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Пост заявка за добавяне на резервация.
+        /// </summary>
+        /// <param name="firstName"></param>
+        /// <param name="secondName"></param>
+        /// <param name="familyName"></param>
+        /// <param name="pin"></param>
+        /// <param name="email"></param>
+        /// <param name="telephoneNumber"></param>
+        /// <param name="nationality"></param>
+        /// <param name="ticketType"></param>
+        /// <param name="uniquePlaneNumber"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult AddReservation(ReservationListViewModel reservationListView, int uniquePlaneNumber, string Email)
         {

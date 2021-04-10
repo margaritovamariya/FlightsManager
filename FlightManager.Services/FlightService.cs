@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -19,6 +19,18 @@ namespace FlightManager.Services
             this.dbContext = context;
         }
         
+        /// <summary>
+        /// Създава полет
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <param name="dateTimeTakeOff"></param>
+        /// <param name="dateTimeLanding"></param>
+        /// <param name="planeType"></param>
+        /// <param name="uniquePlaneNumber"></param>
+        /// <param name="pilotName"></param>
+        /// <param name="passengersCapacity"></param>
+        /// <param name="businessClassCapacity"></param>
         public void Create(FlightViewModel model)
         {
             var flight = new Flight();
@@ -78,6 +90,17 @@ namespace FlightManager.Services
             this.dbContext.SaveChanges();
         }
 
+        /// <summary>
+        /// Взима определен полет по дадените параметри
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <param name="dateTimeTakeOff"></param>
+        /// <param name="dateTimeLanding"></param>
+        /// <param name="planeType"></param>
+        /// <param name="uniquePlaneNumber"></param>
+        /// <returns>полета с дадения номер</returns>
+        
         public IEnumerable<FlightViewModel> GetExactFlight(int uniquePlaneNumber)
         {
             var flights = dbContext.Flights
@@ -88,6 +111,12 @@ namespace FlightManager.Services
             return flights;
         }
 
+        /// <summary>
+        /// Взимат се всички полети
+        /// </summary>
+        /// <returns> всички полети </returns>
+        /// 
+
         public IEnumerable<FlightViewModel> GetAllFlights()
         {
             var flights = dbContext.Flights
@@ -97,6 +126,11 @@ namespace FlightManager.Services
             return flights;
         }
 
+        /// <summary>
+        /// Функция, която се извиква от горния метод
+        /// </summary>
+        /// <returns>лист от flightviewmodel </returns>
+       
         private static Expression<Func<Flight, FlightViewModel>> MapToFlightViewModel()
         {
             return x => new FlightViewModel()

@@ -18,7 +18,19 @@ namespace FlightManager.Services
         {
             this.dbContext = context;
         }
-
+        
+        /// <summary>
+        /// Създава резервация
+        /// </summary>
+        /// <param name="firstName"></param>
+        /// <param name="secondName"></param>
+        /// <param name="familyName"></param>
+        /// <param name="pin"></param>
+        /// <param name="email"></param>
+        /// <param name="telephoneNumber"></param>
+        /// <param name="nationality"></param>
+        /// <param name="ticketType"></param>
+        /// <param name="uniquePlaneNumber"></param>
         public void Create(ReservationListViewModel reservationView, int uniquePlaneNumber)
         {
             var flight = dbContext.Flights.FirstOrDefault(x => x.UniquePlaneNumber == uniquePlaneNumber);
@@ -62,7 +74,20 @@ namespace FlightManager.Services
             }
         }
            
-
+                /// <summary>
+        /// Метод, който се извиква от горния. Създава се резервация. Отделен е, за да бъде по-четлив кода.
+        /// </summary>
+        /// <param name="firstName"></param>
+        /// <param name="secondName"></param>
+        /// <param name="familyName"></param>
+        /// <param name="pin"></param>
+        /// <param name="email"></param>
+        /// <param name="telephoneNumber"></param>
+        /// <param name="nationality"></param>
+        /// <param name="ticketType"></param>
+        /// <param name="uniquePlaneNumber"></param>
+        /// <param name="flight"></param>
+        /// <returns>резервация за добавяне</returns>
         private Reservation AddReservation(ReservationViewModel reservationView, int uniquePlaneNumber, Flight flight)
         {
             var reservation = new Reservation();
@@ -99,6 +124,12 @@ namespace FlightManager.Services
             }
             return reservation;
         }
+        
+        /// <summary>
+        /// Взима резервацията за даден полет по уникално число.
+        /// </summary>
+        /// <param name="uniquePlaneNumber"></param>
+        /// <returns></returns>       
 
         public IEnumerable<ReservationViewModel> GetFlightReservations(int uniquePlaneNumber)
         {
@@ -118,28 +149,6 @@ namespace FlightManager.Services
                 .ToList();
 
             return reservations;
-        }
-
-        public void UpdateReservation(Reservation reservationUpdate)
-        {
-            var reservation = this.dbContext.Reservations.FirstOrDefault(x => x.Id == reservationUpdate.Id);
-
-            if (reservation != null)
-            {
-                reservation.FirstName = reservationUpdate.FirstName;
-                reservation.SecondName = reservationUpdate.SecondName;
-                reservation.FamilyName = reservationUpdate.FamilyName;
-                reservation.PIN = reservationUpdate.PIN;
-                reservation.TelephoneNumber = reservationUpdate.TelephoneNumber;
-                reservation.Nationality = reservationUpdate.Nationality;
-                reservation.TicketType.Name = reservationUpdate.TicketType.Name;
-            }
-            else
-            {
-                throw new ArgumentNullException(ExceptionMessages.InvalidReservation);
-            }
-
-            this.dbContext.SaveChanges();
         }
 
         public async Task<ReservationTableViewModel> ReturnPages(ReservationTableViewModel model)
