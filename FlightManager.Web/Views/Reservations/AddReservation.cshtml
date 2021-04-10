@@ -1,40 +1,41 @@
-﻿@{
+﻿@model ReservationListViewModel
+
+@{
     ViewData["Title"] = "Add Reservation";
 }
 <h1 class="text-center">Create Reservation</h1>
 
 
-<form method="post" asp-action="AddReservation" asp-controller="Reservations" class="form-group">
-    
+<form method="post" asp-action="AddReservation" asp-controller="Reservations" class="form-group">   
     <div class="BoxForReservation text-center">
         <div class="my-3 col-md-3 mx-auto">
-            Email: <input type="email" name="Email" placeholder="Email" class="form-control" required/>
+            Email: <input type="email" name="Email" placeholder="Email" class="form-control" required />
         </div>
-        @for (int NumberOfPeople = 1; NumberOfPeople <= ViewBag.id; NumberOfPeople++)
+        @for (int NumberOfPeople = 0; NumberOfPeople < ViewBag.id; NumberOfPeople++)
         {
             <div class="column">
                 <div class="row col-xs-6 my-3 row-cols-sm-1">
                     <div class="mx-custom">
-                        First Name: <input name="firstName" class="form-control" required>
+                        First Name: <input asp-for="reservations[NumberOfPeople].FirstName" class="form-control" required>
                     </div>
                     <div class="mx-custom">
-                        Second Name: <input name="secondName" class="form-control" required>
+                        Second Name: <input asp-for="reservations[NumberOfPeople].SecondName" class="form-control" required>
                     </div>
                     <div class="mx-custom">
-                        Family Name: <input name="familyName" class="form-control" required>
+                        Family Name: <input asp-for="reservations[NumberOfPeople].FamilyName" class="form-control" required>
                     </div>
                     <div class="mx-custom">
-                        Pin: <input name="pin" class="form-control" required>
+                        Pin: <input asp-for="reservations[NumberOfPeople].PIN" class="form-control" required>
                     </div>
                     <div class="mx-custom">
-                        Telephone Number: <input name="telephoneNumber" class="form-control" required>
+                        Telephone Number: <input asp-for="reservations[NumberOfPeople].TelephoneNumber" class="form-control" required>
                     </div>
                     <div class="mx-custom">
-                        Nationality: <input name="nationality" class="form-control" required>
+                        Nationality: <input asp-for="reservations[NumberOfPeople].Nationality" class="form-control" required>
                     </div>
                     <div class="mx-auto mt-3">
                         <label for="ticketType">Choose a Ticket Type:</label>
-                        <select id="ticketType" name="ticketType" class="form-control">
+                        <select id="ticketType" asp-for="reservations[NumberOfPeople].TicketType" class="form-control">
                             <option value="Regular">Regular Ticket</option>
                             <option value="Business Class">Business Class Ticket</option>
                         </select>
@@ -46,5 +47,8 @@
             </div>
         }
         <input type="submit" class="btn btn-primary my-3" value="Add reservation" />
+        <div class="my-3">
+            <a asp-action="Index" asp-controller="Home" >Main Menu</a>
+        </div>
     </div>
 </form>

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-using FlightManager.Common;
-
-namespace FlightManager.Services.Models.OutputModels
+﻿namespace FlightManager.Services.Models.OutputModels
 {
     public class ReservationViewModel
     {
@@ -16,5 +10,6 @@ namespace FlightManager.Services.Models.OutputModels
         public string TelephoneNumber { get; set; }
         public string Nationality { get; set; }
         public string TicketType { get; set; }
+        public int FlightId { get; set; }
     }
 }

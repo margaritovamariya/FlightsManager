@@ -1,5 +1,6 @@
 ﻿using System;
 using FlightManager.Services;
+using FlightManager.Services.Models.OutputModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FlightManager.Web.Controllers
@@ -20,13 +21,11 @@ namespace FlightManager.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddFlight(string from, string to, DateTime dateTimeTakeOff, DateTime dateTimeLanding, string planeType,
-                                                int uniquePlaneNumber, string pilotName, int passengersCapacity, int businessClassCapacity)
+        public IActionResult AddFlight(FlightViewModel model)
         {
-            flightService.Create(from, to, dateTimeTakeOff, dateTimeLanding, planeType,
-                                                 uniquePlaneNumber, pilotName, passengersCapacity, businessClassCapacity);
+            flightService.Create(model);
 
-            return Redirect("ShowAllFlights");
+            return View();
         }
 
         [HttpGet]

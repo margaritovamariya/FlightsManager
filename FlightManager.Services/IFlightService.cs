@@ -8,21 +8,14 @@ namespace FlightManager.Services
 {
     public interface IFlightService
     {
-        void Create(string from, string to, DateTime dateTimeTakeOff, 
-                    DateTime dateTimeLanding, string planeType, 
-                    int uniquePlaneNumber, string pilotName,
-                    int passengersCapacity, int businessClassCapacity);
+        void Create(FlightViewModel model);
 
-        IEnumerable<FlightViewModel> GetExactFlight(string from, string to, DateTime dateTimeTakeOff, 
-                                                    DateTime dateTimeLanding, string planeType, int uniquePlaneNumber);
+        IEnumerable<FlightViewModel> GetExactFlight(int uniquePlaneNumber);
 
         IEnumerable<FlightViewModel> GetAllFlights();
 
-        void UpdateFlight(string from, string to, DateTime dateTimeTakeOff, 
-                          DateTime dateTimeLanding, string planeType, int uniquePlaneNumber, 
-                          string pilotName, int passengersCapacity, int businessClassCapacity);
-
-        void DeleteFlight(string from, string to, DateTime dateTimeTakeOff,
-                        DateTime dateTimeLanding, string planeType, int uniquePlaneNumber);
+        //void UpdateFlight(string from, string to, DateTime dateTimeTakeOff, 
+        //                  DateTime dateTimeLanding, string planeType, int uniquePlaneNumber, 
+        //                  string pilotName, int passengersCapacity, int businessClassCapacity);
     }
 }

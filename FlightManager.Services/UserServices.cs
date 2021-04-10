@@ -5,9 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using FlightManager.Services.Models.OutputModels;
-using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace FlightManager.Services
@@ -188,7 +186,7 @@ namespace FlightManager.Services
             model.Pager ??= new PagerViewModel();
             model.Pager.CurrentPage = model.Pager.CurrentPage <= 0 ? 1 : model.Pager.CurrentPage;
 
-            List<UserViewModel> items = await dbContext.Users.Skip((model.Pager.CurrentPage - 1) * PageSize).Take(PageSize).Select(c => new UserViewModel()
+            List<UserViewModel> items = dbContext.Users.Skip((model.Pager.CurrentPage - 1) * PageSize).Take(PageSize).Select(c => new UserViewModel()
             {
                 Id = c.Id,
                 UserName = c.UserName,
@@ -198,10 +196,10 @@ namespace FlightManager.Services
                 Address = c.Address,
                 PhoneNumber = c.PhoneNumber,
 
-            }).ToListAsync();
+            }).ToList();
 
             model.Items = items;
-            model.Pager.PagesCount = (int)Math.Ceiling(await dbContext.Users.CountAsync() / (double)PageSize);
+            model.Pager.PagesCount = (int)Math.Ceiling(dbContext.Users.Count() / (double)PageSize);
 
             return model;
         }

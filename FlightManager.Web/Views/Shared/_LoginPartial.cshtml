@@ -4,7 +4,6 @@
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 
-@model FlightManager.Web.Areas.Identity.Pages.Account.LoginModel
 
 @if (SignInManager.IsSignedIn(User))
 {
@@ -29,11 +28,9 @@ else
         <div class="row">
             <div style="margin: 0rem 1rem">
                 <input class="form-control form-control-sm" type="Text" name="Username" id="username" placeholder="Username" />
-                <span asp-validation-for="Input.Username" class="text-danger"></span>
             </div>
             <div>
                 <input class="form-control form-control-sm form-inline" type="password" name="Password" id="password" placeholder="Password"  />
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
             <div style="margin: 0rem 1rem">
                 <button id="login" type="submit" class="btn form-inline">Login</button>
