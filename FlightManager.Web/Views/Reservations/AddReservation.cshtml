@@ -16,26 +16,26 @@
             <div class="column">
                 <div class="row col-xs-6 my-3 row-cols-sm-1">
                     <div class="mx-custom">
-                        First Name: <input asp-for="reservations[NumberOfPeople].FirstName" class="form-control" required>
+                        First Name: <input asp-for="Reservations[NumberOfPeople].FirstName" class="form-control" required>
                     </div>
                     <div class="mx-custom">
-                        Second Name: <input asp-for="reservations[NumberOfPeople].SecondName" class="form-control" required>
+                        Second Name: <input asp-for="Reservations[NumberOfPeople].SecondName" class="form-control" required>
                     </div>
                     <div class="mx-custom">
-                        Family Name: <input asp-for="reservations[NumberOfPeople].FamilyName" class="form-control" required>
+                        Family Name: <input asp-for="Reservations[NumberOfPeople].FamilyName" class="form-control" required>
                     </div>
                     <div class="mx-custom">
-                        Pin: <input asp-for="reservations[NumberOfPeople].PIN" class="form-control" required>
+                        Pin: <input asp-for="Reservations[NumberOfPeople].PIN" class="form-control" required>
                     </div>
                     <div class="mx-custom">
-                        Telephone Number: <input asp-for="reservations[NumberOfPeople].TelephoneNumber" class="form-control" required>
+                        Telephone Number: <input asp-for="Reservations[NumberOfPeople].TelephoneNumber" class="form-control" required>
                     </div>
                     <div class="mx-custom">
-                        Nationality: <input asp-for="reservations[NumberOfPeople].Nationality" class="form-control" required>
+                        Nationality: <input asp-for="Reservations[NumberOfPeople].Nationality" class="form-control" required>
                     </div>
                     <div class="mx-auto mt-3">
                         <label for="ticketType">Choose a Ticket Type:</label>
-                        <select id="ticketType" asp-for="reservations[NumberOfPeople].TicketType" class="form-control">
+                        <select id="ticketType" asp-for="Reservations[NumberOfPeople].TicketType" class="form-control">
                             <option value="Regular">Regular Ticket</option>
                             <option value="Business Class">Business Class Ticket</option>
                         </select>

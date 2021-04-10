@@ -9,33 +9,34 @@ using FlightManager.Services.Models.OutputModels;
 
 namespace FlightManager.Services
 {
+    /// <summary>
+    /// Клас който рабори с базата данни за резервации
+    /// </summary>
     public class ReservationService : IReservationService
     {
         private const int PageSize = 25;
         private readonly FlightManagerDbContext dbContext;
 
+        /// <summary>
+        /// Сетва базата данни
+        /// </summary>
+        /// <param name="context"></param>
         public ReservationService(FlightManagerDbContext context)
         {
             this.dbContext = context;
         }
-        
+
         /// <summary>
         /// Създава резервация
         /// </summary>
-        /// <param name="firstName"></param>
-        /// <param name="secondName"></param>
-        /// <param name="familyName"></param>
-        /// <param name="pin"></param>
-        /// <param name="email"></param>
-        /// <param name="telephoneNumber"></param>
-        /// <param name="nationality"></param>
-        /// <param name="ticketType"></param>
+        /// <param name="reservationView"></param>
         /// <param name="uniquePlaneNumber"></param>
+
         public void Create(ReservationListViewModel reservationView, int uniquePlaneNumber)
         {
             var flight = dbContext.Flights.FirstOrDefault(x => x.UniquePlaneNumber == uniquePlaneNumber);
 
-            foreach(var Reservations in reservationView.reservations)
+            foreach(var Reservations in reservationView.Reservations)
             {
                 if (Reservations.TicketType == GlobalConstants.TicketTypeRegular)
                 {
@@ -73,18 +74,11 @@ namespace FlightManager.Services
                 this.dbContext.SaveChanges();
             }
         }
-           
-                /// <summary>
+
+        /// <summary>
         /// Метод, който се извиква от горния. Създава се резервация. Отделен е, за да бъде по-четлив кода.
         /// </summary>
-        /// <param name="firstName"></param>
-        /// <param name="secondName"></param>
-        /// <param name="familyName"></param>
-        /// <param name="pin"></param>
-        /// <param name="email"></param>
-        /// <param name="telephoneNumber"></param>
-        /// <param name="nationality"></param>
-        /// <param name="ticketType"></param>
+        /// <param name="reservationView"></param>
         /// <param name="uniquePlaneNumber"></param>
         /// <param name="flight"></param>
         /// <returns>резервация за добавяне</returns>
@@ -151,6 +145,11 @@ namespace FlightManager.Services
             return reservations;
         }
 
+        /// <summary>
+        /// Взима лист от резервация и броя на страниците
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns> Лист от ReservationViewModel </returns>
         public async Task<ReservationTableViewModel> ReturnPages(ReservationTableViewModel model)
         {
             model.Pager ??= new PagerViewModel();

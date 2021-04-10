@@ -37,20 +37,14 @@ namespace FlightManager.Web.Controllers
         /// <summary>
         /// Пост заявка за добавяне на резервация.
         /// </summary>
-        /// <param name="firstName"></param>
-        /// <param name="secondName"></param>
-        /// <param name="familyName"></param>
-        /// <param name="pin"></param>
-        /// <param name="email"></param>
-        /// <param name="telephoneNumber"></param>
-        /// <param name="nationality"></param>
-        /// <param name="ticketType"></param>
+        /// <param name="reservationListView"></param>
+        /// <param name="Email"></param>
         /// <param name="uniquePlaneNumber"></param>
         /// <returns></returns>
         [HttpPost]
         public IActionResult AddReservation(ReservationListViewModel reservationListView, int uniquePlaneNumber, string Email)
         {
-            foreach(var emails in reservationListView.reservations)
+            foreach(var emails in reservationListView.Reservations)
             {
                 emails.Email = Email;
             }
@@ -63,6 +57,12 @@ namespace FlightManager.Web.Controllers
             return Redirect("/Flights/ShowAllFlights");
         }
 
+        /// <summary>
+        /// Shows all reservation for given flight
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="uniquePlaneNumber"></param>
+        /// <returns>List of reservations </returns>
         [HttpGet]
         public IActionResult ShowAllReservations(ReservationTableViewModel model, int uniquePlaneNumber)
         {

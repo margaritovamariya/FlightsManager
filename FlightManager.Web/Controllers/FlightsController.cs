@@ -27,15 +27,7 @@ namespace FlightManager.Web.Controllers
         /// <summary>
         /// Пост заявка за добавяне на полет
         /// </summary>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
-        /// <param name="dateTimeTakeOff"></param>
-        /// <param name="dateTimeLanding"></param>
-        /// <param name="planeType"></param>
-        /// <param name="uniquePlaneNumber"></param>
-        /// <param name="pilotName"></param>
-        /// <param name="passengersCapacity"></param>
-        /// <param name="businessClassCapacity"></param>
+        /// <param name="model"></param>
         /// <returns>редиректва ни към showAllFlights</returns>
         [HttpPost]
         public IActionResult AddFlight(FlightViewModel model)
@@ -47,7 +39,7 @@ namespace FlightManager.Web.Controllers
         /// <summary>
         /// Гет заявка за показване на всички полети.
         /// </summary>
-        /// <returns>Изгледа на страницата</returns>
+        /// <returns>Всички полети на страницата</returns>
         [HttpGet]
         public IActionResult ShowAllFlights()
         {

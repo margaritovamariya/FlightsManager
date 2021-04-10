@@ -4,8 +4,14 @@ using System.Text;
 
 namespace FlightManager.Services.Models.OutputModels
 {
+    /// <summary>
+    /// ReservationListModel
+    /// </summary>
     public class ReservationListViewModel
     {
-        public List<ReservationViewModel> reservations { get; set; }
+        /// <summary>
+        /// gets,sets List of Reservations
+        /// </summary>
+        public List<ReservationViewModel> Reservations { get; set; }
     }
 }

@@ -46,7 +46,7 @@ namespace FlightManager.Services.Tests.ReservationTests
             mockContext.Setup(x => x.Reservations).Returns(mockSet.Object);
             var flight = data.FirstOrDefault(x => x.UniquePlaneNumber == 123456);
 
-            reservationListView.reservations = reservation;
+            reservationListView.Reservations = reservation;
 
             //Act
             var service = new ReservationService(mockContext.Object);
@@ -123,7 +123,7 @@ namespace FlightManager.Services.Tests.ReservationTests
             Assert.That(result.Items.Count() == reservation.Count());
         }
 
-        private readonly List<Reservation> reservations1 = new List<Reservation>()
+        private readonly List<Reservation> reservations1 = new()
         {
             new Reservation
             {
@@ -171,9 +171,9 @@ namespace FlightManager.Services.Tests.ReservationTests
 
         };
 
-        private readonly ReservationTableViewModel reservationTableView = new ReservationTableViewModel();
+        private readonly ReservationTableViewModel reservationTableView = new();
 
-        private readonly List<ReservationViewModel> reservation = new List<ReservationViewModel>()
+        private readonly List<ReservationViewModel> reservation = new()
         {
              new ReservationViewModel
              {
@@ -201,12 +201,12 @@ namespace FlightManager.Services.Tests.ReservationTests
 
         };
 
-        private readonly ReservationListViewModel reservationListView = new ReservationListViewModel()
+        private readonly ReservationListViewModel reservationListView = new()
         {
-            reservations = new List<ReservationViewModel>()
+            Reservations = new List<ReservationViewModel>()
         };
 
-        private readonly List<TicketType> ticketTypes = new List<TicketType>()
+        private readonly List<TicketType> ticketTypes = new()
         {
             new TicketType
             {
@@ -223,7 +223,7 @@ namespace FlightManager.Services.Tests.ReservationTests
             }
         };
 
-        private readonly List<Flight> flights = new List<Flight>()
+        private readonly List<Flight> flights = new()
         {
              new Flight
              {
