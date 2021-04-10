@@ -20,9 +20,9 @@ namespace FlightManager.Data
         {
         }
 
-        public DbSet<Flight> Flights { get; set; }
-        public DbSet<Reservation> Reservations { get; set; }
-        public DbSet<TicketType> TicketTypes { get; set; }
+        public virtual DbSet<Flight> Flights { get; set; }
+        public virtual DbSet<Reservation> Reservations { get; set; }
+        public virtual DbSet<TicketType> TicketTypes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -1,8 +1,3 @@
-@*@{
-        IEnumerable<FlightManager.Models.Flight>
-          flight = ViewData["Flights"] as IEnumerable<FlightManager.Models.Flight>;
-    }*@
-
 <div class="text-center ">
     <h1 class="display-4 bring-to-front">FlightManager</h1>
     <p class="bring-to-front">Easy and cheap way to travel around the world</p>
@@ -14,7 +9,7 @@
         {
             <div class="column">
                 <h4 class="column-txt-h4">From: @flights.From To: @flights.To | Leaves on: @flights.DateTimeTakeOff</h4>
-                <p class="column-txt-p">@flights.PlaneType | Flight Duration:@flights.Duration (Reservations: @flights.Reservations.Count)</p>
+                <p class="column-txt-p">@flights.PlaneType | Flight Duration:@flights.Duration ( Reservation: @flights.Reservations.Count)</p>
                 <form action="/Reservations/AddReservation" method="get">
                     <span>
                         <input type="submit" name="Button" value="Make reservation for" class="btn btn-primary btn-absoluteposition">

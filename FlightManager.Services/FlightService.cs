@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -18,7 +18,7 @@ namespace FlightManager.Services
         {
             this.dbContext = context;
         }
-
+        
         /// <summary>
         /// Създава полет
         /// </summary>
@@ -31,34 +31,31 @@ namespace FlightManager.Services
         /// <param name="pilotName"></param>
         /// <param name="passengersCapacity"></param>
         /// <param name="businessClassCapacity"></param>
-       
-
-        public void Create(string from, string to, DateTime dateTimeTakeOff, DateTime dateTimeLanding, string planeType,
-            int uniquePlaneNumber, string pilotName, int passengersCapacity, int businessClassCapacity)
+        public void Create(FlightViewModel model)
         {
             var flight = new Flight();
 
             //From to input
-            if (from != to)
+            if (model.From != model.To)
             {
-                flight.From = from;
-                flight.To = to;
+                flight.From = model.From;
+                flight.To = model.To;
             }
 
             //DateTime input
-            if (dateTimeTakeOff > dateTimeLanding)
+            if (model.DateTimeTakeOff < model.DateTimeLanding)
             {
-                flight.DateTimeTakeOff = dateTimeTakeOff;
-                flight.DateTimeLanding = dateTimeLanding;
+                flight.DateTimeTakeOff = model.DateTimeTakeOff;
+                flight.DateTimeLanding = model.DateTimeLanding;
             }
 
             //PlaneType input
-            flight.PlaneType = planeType;
+            flight.PlaneType = model.PlaneType;
 
             //Unique number input
-            if (!dbContext.Flights.Any(x => x.UniquePlaneNumber == uniquePlaneNumber))
+            if (!dbContext.Flights.Any(x => x.UniquePlaneNumber == model.UniquePlaneNumber))
             {
-                flight.UniquePlaneNumber = uniquePlaneNumber;
+                flight.UniquePlaneNumber = model.UniquePlaneNumber;
             }
             else
             {
@@ -66,12 +63,12 @@ namespace FlightManager.Services
             }
 
             //Pilot name input
-            flight.PilotName = pilotName;
+            flight.PilotName = model.PilotName;
 
             //Passenger capacity input
-            if (passengersCapacity >= 5 && passengersCapacity <= 1000)
+            if (model.PassengerCapacity >= 5 && model.PassengerCapacity <= 1000)
             {
-                flight.PassengersCapacity = passengersCapacity;
+                flight.PassengersCapacity = model.PassengerCapacity;
             }
             else
             {
@@ -79,9 +76,9 @@ namespace FlightManager.Services
             }
 
             //BusinessClass capacity input
-            if (businessClassCapacity >= 5 && businessClassCapacity <= 1000)
+            if (model.BusinessClassCapacity >= 5 && model.BusinessClassCapacity <= 1000)
             {
-                flight.BusinessClassCapacity = businessClassCapacity;
+                flight.BusinessClassCapacity = model.BusinessClassCapacity;
             }
             else
             {
@@ -102,18 +99,12 @@ namespace FlightManager.Services
         /// <param name="dateTimeLanding"></param>
         /// <param name="planeType"></param>
         /// <param name="uniquePlaneNumber"></param>
-        /// <returns>полета</returns>
-
-        public IEnumerable<FlightViewModel> GetExactFlight(string from, string to, DateTime dateTimeTakeOff,
-                                                          DateTime dateTimeLanding, string planeType, int uniquePlaneNumber)
+        /// <returns>полета с дадения номер</returns>
+        
+        public IEnumerable<FlightViewModel> GetExactFlight(int uniquePlaneNumber)
         {
             var flights = dbContext.Flights
-                .Where(f => f.From == from 
-                            && f.To == to 
-                            && f.DateTimeTakeOff == dateTimeTakeOff
-                            && f.DateTimeLanding == dateTimeLanding 
-                            && f.PlaneType == planeType
-                            && f.UniquePlaneNumber == uniquePlaneNumber)
+                .Where(f => f.UniquePlaneNumber == uniquePlaneNumber)
                 .Select(MapToFlightViewModel())
                 .ToList();
 
@@ -144,12 +135,15 @@ namespace FlightManager.Services
         {
             return x => new FlightViewModel()
             {
+                Id = x.Id,
                 From = x.From,
                 To = x.To,
                 PlaneType = x.PlaneType,
                 UniquePlaneNumber = x.UniquePlaneNumber,
                 DateTimeTakeOff = x.DateTimeTakeOff,
                 Duration = x.DateTimeLanding - x.DateTimeTakeOff,
+                PassengerCapacity = x.PassengersCapacity,
+                BusinessClassCapacity = x.BusinessClassCapacity,
                 Reservations = x.Reservations.Select(r => new ReservationViewModel()
                 {
                     FirstName = r.FirstName,
@@ -162,81 +156,6 @@ namespace FlightManager.Services
                     TicketType = r.TicketType.Name
                 }).ToList()
             };
-        }
-
-        /// <summary>
-        /// Ъпдейтват се полета
-        /// </summary>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
-        /// <param name="dateTimeTakeOff"></param>
-        /// <param name="dateTimeLanding"></param>
-        /// <param name="planeType"></param>
-        /// <param name="uniquePlaneNumber"></param>
-        /// <param name="pilotName"></param>
-        /// <param name="passengersCapacity"></param>
-        /// <param name="businessClassCapacity"></param>
-        
-        public void UpdateFlight(string from, string to, DateTime dateTimeTakeOff, DateTime dateTimeLanding, string planeType,
-                                int uniquePlaneNumber, string pilotName, int passengersCapacity, int businessClassCapacity)
-        {
-            if (this.dbContext.Flights.Any(x=>x.UniquePlaneNumber == uniquePlaneNumber) == true)
-            {
-                var flight = this.dbContext.Flights.FirstOrDefault(f => f.UniquePlaneNumber == uniquePlaneNumber);
-                flight.From = from;
-                flight.To = to;
-                flight.DateTimeTakeOff = dateTimeTakeOff;
-                flight.DateTimeLanding = dateTimeLanding;
-                flight.PlaneType = planeType;
-                flight.PilotName = pilotName;
-                flight.PassengersCapacity = passengersCapacity;
-                flight.BusinessClassCapacity = businessClassCapacity;
-            }
-            else
-            {
-                throw new ArgumentNullException(ExceptionMessages.InvalidUniqueNumberPlane);
-            }
-
-            this.dbContext.SaveChanges();
-        }
-
-        /// <summary>
-        /// Изтрива се полета
-        /// </summary>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
-        /// <param name="dateTimeTakeOff"></param>
-        /// <param name="dateTimeLanding"></param>
-        /// <param name="planeType"></param>
-        /// <param name="uniquePlaneNumber"></param>
-        
-        public void DeleteFlight(string from, string to, DateTime dateTimeTakeOff, DateTime dateTimeLanding, string planeType,
-            int uniquePlaneNumber)
-        {
-            //Take the flight which we want to remove
-            var flightToRemove = this.dbContext.Flights
-                .FirstOrDefault(f => f.From == from && f.To == to && f.DateTimeTakeOff == dateTimeTakeOff
-                                     && f.DateTimeLanding == dateTimeLanding && f.PlaneType == planeType &&
-                                     f.UniquePlaneNumber == uniquePlaneNumber);
-
-            if (flightToRemove != null)
-            {
-                //Take the reservations for this flight
-                var reservationsToDelete = this.dbContext.Reservations.Where(x => x.FlightId == flightToRemove.Id);
-
-                //Remove all reservations
-                foreach (var reservation in reservationsToDelete)
-                {
-                    this.dbContext.Remove(reservation);
-                }
-
-                this.dbContext.Flights.Remove(flightToRemove);
-                this.dbContext.SaveChanges();
-            }
-            else
-            {
-                throw new ArgumentNullException(ExceptionMessages.InvalidFlight);
-            }
         }
     }
 }

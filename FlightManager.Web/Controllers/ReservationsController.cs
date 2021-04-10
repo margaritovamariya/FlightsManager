@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using FlightManager.Services;
+﻿using FlightManager.Services;
 using FlightManager.Services.Models.OutputModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,10 +7,12 @@ namespace FlightManager.Web.Controllers
     public class ReservationsController : Controller
     {
         private readonly IReservationService reservationService;
+        private readonly IFlightService flightService;
 
-        public ReservationsController(IReservationService reservationService)
+        public ReservationsController(IReservationService reservationService, IFlightService flightService)
         {
             this.reservationService = reservationService;
+            this.flightService = flightService;
         }
         /// <summary>
         /// Гет заявка за показване на регистрация по дадени id, upn.
@@ -32,7 +30,7 @@ namespace FlightManager.Web.Controllers
                 return Redirect("/Home/Index");
             }
             ViewBag.id = id;
-            ViewBag.UPN = UPN;
+            ViewBag.UPN = UPN;          
             return View();
         }
 
@@ -50,26 +48,34 @@ namespace FlightManager.Web.Controllers
         /// <param name="uniquePlaneNumber"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult AddReservation(string firstName, string secondName, string familyName, long pin, string email,
-            string telephoneNumber, string nationality, string ticketType, int uniquePlaneNumber)
+        public IActionResult AddReservation(ReservationListViewModel reservationListView, int uniquePlaneNumber, string Email)
         {
+            foreach(var emails in reservationListView.reservations)
+            {
+                emails.Email = Email;
+            }
+
             if (ModelState.IsValid)
             {
-                reservationService.Create(firstName, secondName, familyName, pin, email,
- telephoneNumber, nationality, ticketType, uniquePlaneNumber);
+                reservationService.Create(reservationListView, uniquePlaneNumber);
             }
 
             return Redirect("/Flights/ShowAllFlights");
         }
 
-        //[HttpGet]
-        //public IActionResult ShowAddedReservation(string firstName, string secondName, string familyName, long pin, string email,
-        //    string telephoneNumber, string nationality, string ticketType, int uniquePlaneNumber)
-        //{
-        //    this.reservationService.Create(firstName, secondName, familyName, pin, email, telephoneNumber, nationality, ticketType, uniquePlaneNumber);
-        //    var reservations = this.reservationService.GetFlightReservations(uniquePlaneNumber);
-        //    ViewBag.Reservations = reservations;
-        //    return this.View();
-        //}
+        [HttpGet]
+        public IActionResult ShowAllReservations(ReservationTableViewModel model, int uniquePlaneNumber)
+        {
+            var reservations = this.reservationService.GetFlightReservations(uniquePlaneNumber);
+            ViewBag.Reservations = reservations;
+            var flight = this.flightService.GetExactFlight(uniquePlaneNumber);
+            var reservationPages = this.reservationService.ReturnPages(model);
+            ViewBag.ReturnedReservations = reservationPages.Result.Items;
+            ViewBag.ReturnedReservationPagers = reservationPages.Result.Pager.PagesCount;
+            ViewBag.ReturnedReservationPagersCurrentPage = reservationPages.Result.Pager.CurrentPage;
+            return View(flight);
+        }
+
+
     }
 }

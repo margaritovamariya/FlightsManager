@@ -1,49 +1,43 @@
-﻿<div class="text-center">
+﻿
+<div class="text-center">
     <h1>Check Flights</h1>
 </div>
+<p>
+    <a asp-action="AddFlight" class="btn btn-primary mx-3">Create New Flight</a>
+</p>
 
-<table class="table table-striped table-hover table- table-bordered">
+<table class="table table-striped table-hover table- table-bordered bg-white">
+
     <thead class="thead-dark">
         <tr>
+            <th>From</th>
+            <th>To</th>
+            <th>PlaneType</th>
             <th>Unique Plane Number</th>
+            <th>Passenger Seats</th>
+            <th>Business Class Seats</th>
             <th>Date Time TakeOff</th>
             <th>Duration</th>
+            <th></th>
         </tr>
     </thead>
-
     @foreach (var flight in ViewBag.Flights)
     {
         <tr>
+            <td>@flight.From</td>
+            <td>@flight.To</td>
+            <td>@flight.PlaneType</td>
             <td>@flight.UniquePlaneNumber</td>
+            <td>@flight.PassengerCapacity</td>
+            <td>@flight.BusinessClassCapacity</td>
             <td>@flight.DateTimeTakeOff</td>
             <td>@flight.Duration</td>
+            <td>
+                <form asp-action="ShowAllReservations" asp-controller="Reservations" method="get">
+                    <input type="text" name="UniquePlaneNumber" value="@flight.UniquePlaneNumber" hidden />
+                    <input type="submit" value="Reservations" class="bg-transparent border-0 text-info" />
+                </form>
+            </td>
         </tr>
-
-        <thead class="thead-light">
-            <tr>
-                <th>First Name</th>
-                <th>Second Name</th>
-                <th>Family Name</th>
-                <th>Nationality</th>
-                <th>PIN</th>
-                <th>Email</th>
-                <th>Telephone Number</th>
-                <th>Ticket Type</th>
-            </tr>
-        </thead>
-
-        @foreach (var reservation in flight.Reservations)
-        {
-            <tr>
-                <td>@reservation.FirstName</td>
-                <td>@reservation.SecondName</td>
-                <td>@reservation.FamilyName</td>
-                <td>@reservation.Nationality</td>
-                <td>@reservation.PIN</td>
-                <td>@reservation.Email</td>
-                <td>@reservation.TelephoneNumber</td>
-                <td>@reservation.TicketType</td>
-            </tr>
-        }
     }
 </table>

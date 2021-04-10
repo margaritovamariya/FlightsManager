@@ -4,7 +4,7 @@
 <h1 class="text-center">@ViewData["Title"]</h1>
 
 <div class="BoxForColumns">
-    <form method="post"  asp-action="AddFlight" asp-controller="Flights" class="mx-auto text-center col-md-6 form-group">
+    <form method="post" asp-action="AddFlight" asp-controller="Flights" class="mx-auto text-center col-md-6 form-group">
         <div class="my-1">
             <div>
                 From: <input name="from" class="form-control" />
@@ -35,7 +35,7 @@
             </div>
             <hr />
             <div>
-                Passengers Capacity: <input name="passengersCapacity" class="form-control" />
+                Passengers Capacity: <input name="PassengerCapacity" class="form-control" />
             </div>
             <hr />
             <div>
@@ -43,5 +43,8 @@
             </div>
         </div>
         <input type="submit" class="btn btn-primary my-3" value="Add flights" />
+        <div>
+            <a asp-action="ShowAllFlights">Back to List</a>
+        </div>
     </form>
 </div>
