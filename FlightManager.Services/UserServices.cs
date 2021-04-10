@@ -10,10 +10,17 @@ using System.Threading.Tasks;
 
 namespace FlightManager.Services
 {
+    /// <summary>
+    /// Клас който рабори с базата данни за юзери
+    /// </summary>
     public class UserServices : IUserServices
     {
         private const int PageSize = 10;
         private readonly FlightManagerDbContext dbContext;
+        /// <summary>
+        /// Сетва базата данни
+        /// </summary>
+        /// <param name="context"></param>
         public UserServices(FlightManagerDbContext context)
         {
             this.dbContext = context;

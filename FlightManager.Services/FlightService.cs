@@ -10,10 +10,17 @@ using FlightManager.Services.Models.OutputModels;
 
 namespace FlightManager.Services
 {
+    /// <summary>
+    /// Клас който рабори с базата данни за полети
+    /// </summary>
     public class FlightService : IFlightService
     {
         private  readonly FlightManagerDbContext dbContext;
 
+        /// <summary>
+        /// Сетва базата данни
+        /// </summary>
+        /// <param name="context"></param>
         public FlightService(FlightManagerDbContext context)
         {
             this.dbContext = context;
@@ -22,15 +29,7 @@ namespace FlightManager.Services
         /// <summary>
         /// Създава полет
         /// </summary>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
-        /// <param name="dateTimeTakeOff"></param>
-        /// <param name="dateTimeLanding"></param>
-        /// <param name="planeType"></param>
-        /// <param name="uniquePlaneNumber"></param>
-        /// <param name="pilotName"></param>
-        /// <param name="passengersCapacity"></param>
-        /// <param name="businessClassCapacity"></param>
+        /// <param name="model"></param>
         public void Create(FlightViewModel model)
         {
             var flight = new Flight();
@@ -93,12 +92,6 @@ namespace FlightManager.Services
         /// <summary>
         /// Взима определен полет по дадените параметри
         /// </summary>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
-        /// <param name="dateTimeTakeOff"></param>
-        /// <param name="dateTimeLanding"></param>
-        /// <param name="planeType"></param>
-        /// <param name="uniquePlaneNumber"></param>
         /// <returns>полета с дадения номер</returns>
         
         public IEnumerable<FlightViewModel> GetExactFlight(int uniquePlaneNumber)
