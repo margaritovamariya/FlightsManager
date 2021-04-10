@@ -88,6 +88,126 @@ namespace FlightManager.Services.Tests.NewFolder
             Assert.AreEqual(2, Result.Count());
         }
 
+        [Test]
+        public void UpdateFlight_SuccessfulyChangedDatainDatabase()
+        {
+            //Arrange
+            var data = ExactOrAllflights.AsQueryable();
+
+            var mockSet = new Mock<DbSet<Flight>>();
+            mockSet.As<IQueryable<Flight>>().Setup(m => m.Provider).Returns(data.Provider);
+            mockSet.As<IQueryable<Flight>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<Flight>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<Flight>>().Setup(m => m.GetEnumerator()).Returns(() => data.GetEnumerator());
+
+            var mockContext = new Mock<FlightManagerDbContext>();
+            mockContext.Setup(x => x.Flights).Returns(mockSet.Object);
+
+
+            //Act
+            var service = new FlightService(mockContext.Object);
+            service.UpdateFlight(flightView);
+            var result = mockContext.Object.Flights.FirstOrDefault(x => x.UniquePlaneNumber == flightView.UniquePlaneNumber);
+
+            //Assert
+            Assert.AreEqual(result.UniquePlaneNumber, flight1.UniquePlaneNumber);
+            mockContext.Verify(x => x.SaveChanges(), Times.Once());
+        }
+
+        [Test]
+        public void DeleteFlight_ShouldRemoveDataFromDatabase_Successfuly()
+        {
+            //Arrange
+            var data = ExactOrAllflights.AsQueryable();
+
+            var ReservData = reservations1.AsQueryable();
+
+            var mockSet = new Mock<DbSet<Flight>>();
+            mockSet.As<IQueryable<Flight>>().Setup(m => m.Provider).Returns(data.Provider);
+            mockSet.As<IQueryable<Flight>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<Flight>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<Flight>>().Setup(m => m.GetEnumerator()).Returns(() => data.GetEnumerator());
+
+            var mockSetReservations = new Mock<DbSet<Reservation>>();
+            mockSetReservations.As<IQueryable<Reservation>>().Setup(m => m.Provider).Returns(ReservData.Provider);
+            mockSetReservations.As<IQueryable<Reservation>>().Setup(m => m.Expression).Returns(ReservData.Expression);
+            mockSetReservations.As<IQueryable<Reservation>>().Setup(m => m.ElementType).Returns(ReservData.ElementType);
+            mockSetReservations.As<IQueryable<Reservation>>().Setup(m => m.GetEnumerator()).Returns(() => ReservData.GetEnumerator());
+
+            var mockContext = new Mock<FlightManagerDbContext>();
+            mockContext.Setup(x => x.Flights).Returns(mockSet.Object);
+            mockContext.Setup(x => x.Reservations).Returns(mockSetReservations.Object);
+            var PlaneIdToDelete = data.FirstOrDefault(x => x.UniquePlaneNumber == ExactOrAllflights[0].UniquePlaneNumber).UniquePlaneNumber;
+
+            //Act
+            var service = new FlightService(mockContext.Object);
+            service.DeleteFlight(PlaneIdToDelete);
+
+            //Assert
+            mockContext.Verify(x => x.SaveChanges(), Times.Once());
+        }
+
+        private readonly List<Reservation> reservations1 = new()
+        {
+            new Reservation
+            {
+                FirstName = "Random",
+                SecondName = "Random",
+                FamilyName = "RandomAgain",
+                Email = "Random@Random.Random",
+                Nationality = "NqkuvSi",
+                PIN = 111111111,
+                TelephoneNumber = "+1111111",
+                TicketType = new TicketType()
+                {
+                    Name = "Business Class"
+                },
+                FlightId = 1,
+                Id = 1,
+                Flight = new Flight()
+                {
+                    UniquePlaneNumber = 123456
+                },
+                TicketTypeId = 1
+            },
+
+            new Reservation
+            {
+                FirstName = "NqkuvSi",
+                SecondName = "NqkuvSi",
+                FamilyName = "NqkuvSiAgain",
+                Email = "Random@NqkuvSi.Random",
+                Nationality = "Random",
+                PIN = 222222222,
+                TelephoneNumber = "+2222222222",
+                TicketType = new TicketType()
+                {
+                    Name = "Business Class"
+                },
+                FlightId = 2,
+                Id = 2,
+                Flight = new Flight()
+                {
+                    UniquePlaneNumber = 123456
+                },
+                TicketTypeId = 2
+            },
+        };
+
+        private readonly Flight flight1 = new()
+        {
+            From = "NqkadeSi",
+            To = "DonqkadeSi",
+            DateTimeTakeOff = DateTime.UtcNow,
+            DateTimeLanding = DateTime.UtcNow.AddDays(2),
+            PlaneType = "Doing",
+            BusinessClassCapacity = 15,
+            PassengersCapacity = 15,
+            PilotName = "Petka",
+            Reservations = new List<Reservation>(),
+            UniquePlaneNumber = 123456
+        };
+
         private readonly FlightViewModel flightView = new FlightViewModel()
         {
             From = "NqkadeSi",
@@ -100,7 +220,7 @@ namespace FlightManager.Services.Tests.NewFolder
             PilotName = "Petka",
             Duration = TimeSpan.Zero,
             Reservations = new List<ReservationViewModel>(),
-            UniquePlaneNumber = 12345
+            UniquePlaneNumber = 123456
         };
 
         private readonly List<Flight> flights = new List<Flight>();

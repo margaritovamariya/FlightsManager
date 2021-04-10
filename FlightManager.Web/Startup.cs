@@ -44,6 +44,7 @@ namespace FlightManager.Web
             services.AddTransient<IFlightService, FlightService>();
             services.AddTransient<IReservationService, ReservationService>();
             services.AddTransient<IUserServices, UserServices>();
+            services.AddTransient<IMailService, SendGridMailService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
