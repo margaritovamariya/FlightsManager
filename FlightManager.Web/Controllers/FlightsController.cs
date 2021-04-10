@@ -47,6 +47,44 @@ namespace FlightManager.Web.Controllers
             ViewBag.Flights = flights;
             return this.View();
         }
+
+        public IActionResult EditFlight(int id)
+        {
+            if (id == 0)
+            {
+                return NotFound();
+            }
+            var ReturnedFlightEditView = flightService.FindAsync(id);
+            if (ReturnedFlightEditView == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.FlightForEdit = ReturnedFlightEditView;
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditFlight(FlightViewModel model)
+        {
+            flightService.UpdateFlight(model);
+            return RedirectToAction(nameof(ShowAllFlights));
+        }
+
+        /// <summary>
+        /// Пост заявка за изтриване на полет
+        /// </summary>
+        /// <param name="uniquePlaneNumber"></param>
+        /// <returns> redirectToShowAllFlights </returns>
+        public IActionResult Delete(int id)
+        {
+            var flight = flightService.FindAsync(id);
+
+            flightService.DeleteFlight(flight.Result.UniquePlaneNumber);
+            return RedirectToAction(nameof(ShowAllFlights));
+        }
     }
 }
 

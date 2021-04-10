@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Edit Flight";
+    var id = ViewBag.FlightForEdit.Id;
+}
+
+<h1 class="text-center">@ViewData["Title"]</h1>
+
+<div class="BoxForColumns">
+    <form asp-action="EditFlight" asp-controller="Flights" method="post" class="mx-auto text-center col-md-6 form-group">
+        <input type="hidden" asp-for="@id" />
+        <div class="my-1">
+            <div>
+                From: <input name="from" class="form-control" />
+            </div>
+            <hr />
+            <div>
+                To: <input name="to" class="form-control" />
+            </div>
+            <hr />
+            <div>
+                DateTime Take Off: <input type="datetime-local" step="2" min="2018-01-01" max="2021-12-31" name="dateTimeTakeOff" class="form-control" />
+            </div>
+            <hr />
+            <div>
+                Date Time Landing: <input type="time" step="2" name="dateTimeLanding" class="form-control" />
+            </div>
+            <hr />
+            <div>
+                Plane Type: <input name="planeType" class="form-control" />
+            </div>
+            <hr />
+            <div>
+                Pilot Name: <input name="pilotName" class="form-control" />
+            </div>
+            <input type="submit" class="btn btn-primary my-3" value="Edit Flight" />
+        </div>
+        <div>
+            <a asp-action="ShowAllFlights">Back to List</a>
+        </div>
+    </form>
+</div>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 using FlightManager.Common;
 using FlightManager.Data;
 using FlightManager.Models;
@@ -134,7 +135,7 @@ namespace FlightManager.Services
                 PlaneType = x.PlaneType,
                 UniquePlaneNumber = x.UniquePlaneNumber,
                 DateTimeTakeOff = x.DateTimeTakeOff,
-                Duration = x.DateTimeLanding - x.DateTimeTakeOff,
+                Duration = x.DateTimeTakeOff - x.DateTimeLanding,
                 PassengerCapacity = x.PassengersCapacity,
                 BusinessClassCapacity = x.BusinessClassCapacity,
                 Reservations = x.Reservations.Select(r => new ReservationViewModel()
@@ -149,6 +150,75 @@ namespace FlightManager.Services
                     TicketType = r.TicketType.Name
                 }).ToList()
             };
+        }
+
+        /// <summary>
+        /// Updates given flight in database
+        /// </summary>
+        /// <param name="model"></param>
+        public void UpdateFlight(FlightViewModel model)
+        {
+            var planeToUpdate = this.dbContext.Flights.FirstOrDefault(x => x.Id == model.Id);
+
+            if (this.dbContext.Flights.Any(x => x.UniquePlaneNumber == planeToUpdate.UniquePlaneNumber) == true)
+            {
+                var flight = this.dbContext.Flights.FirstOrDefault(f => f.UniquePlaneNumber == planeToUpdate.UniquePlaneNumber);
+                flight.From = model.From;
+                flight.To = model.To;
+                flight.DateTimeTakeOff = model.DateTimeTakeOff;
+                flight.DateTimeLanding = model.DateTimeLanding;
+                flight.PlaneType = model.PlaneType;
+                flight.PilotName = model.PilotName;
+                this.dbContext.Update(flight);
+            }
+            else
+            {
+                throw new ArgumentNullException(ExceptionMessages.InvalidUniqueNumberPlane);
+            }
+
+            this.dbContext.SaveChanges();
+        }
+
+        /// <summary>
+        /// Deletes Flight by UniquePlaneNumber
+        /// </summary>
+        /// <param name="uniquePlaneNumber"></param>
+        public void DeleteFlight(int uniquePlaneNumber)
+        {
+            //Take the flight which we want to remove
+            var flightToRemove = this.dbContext.Flights
+                .FirstOrDefault(f => f.UniquePlaneNumber == uniquePlaneNumber);
+
+            if (flightToRemove != null)
+            {
+                //Take the reservations for this flight
+                var reservationsToDelete = this.dbContext.Reservations.Where(x => x.FlightId == flightToRemove.Id);
+
+                //Remove all reservations
+                foreach (var reservation in reservationsToDelete)
+                {
+                    this.dbContext.Remove(reservation);
+                }
+
+                this.dbContext.Flights.Remove(flightToRemove);
+                this.dbContext.SaveChanges();
+            }
+            else
+            {
+                throw new ArgumentNullException(ExceptionMessages.InvalidFlight);
+            }
+        }
+
+        /// <summary>
+        /// Takes Flight by given id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns> Flight by given id </returns>
+        public async Task<Flight> FindAsync(int id)
+        {
+            Flight flight = await dbContext.Flights.FindAsync(id);
+
+            return flight;
         }
     }
 }
