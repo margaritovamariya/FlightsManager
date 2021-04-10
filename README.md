@@ -11,6 +11,10 @@ Now you are ready to start the system.
 <a href="https://github.com/margaritovamariya/FlightsManager/graphs/contributors)">
   <img src="https://avatars.githubusercontent.com/u/60791605?v=4">
 </a>
+<a href="https://github.com/margaritovamariya/FlightsManager/graphs/contributors)">
+  <img src="https://avatars.githubusercontent.com/u/61647664?s=60&v=4">
+</a>
+
 
 
 
