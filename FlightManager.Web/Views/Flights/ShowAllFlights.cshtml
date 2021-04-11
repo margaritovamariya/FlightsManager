@@ -36,7 +36,7 @@
                 <form asp-action="ShowAllReservations" asp-controller="Reservations" method="get">
                     <input type="text" name="UniquePlaneNumber" value="@flight.UniquePlaneNumber" hidden />
                     <input type="submit" value="Reservations" class="bg-transparent border-0 text-info" />
-                </form> |
+                </form> 
                 <a asp-action="EditFlight" asp-route-id="@flight.Id">Edit</a> |
                 <a asp-action="Delete" asp-route-id="@flight.Id">Delete</a>
             </td>
