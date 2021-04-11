@@ -9,7 +9,7 @@ In order to start the system on our pc, first you need to change the Connection 
 Now you are ready to start the system.
 ## Contributors
 <a href="https://github.com/margaritovamariya/FlightsManager/graphs/contributors)">
-  <img style="width:250px;height:250px;" src="https://avatars.githubusercontent.com/u/60791605?v=4">
+  <img src="https://avatars.githubusercontent.com/u/60791605?v=4" style="width:250px;height:250px;">
 </a>
 <a href="https://github.com/margaritovamariya/FlightsManager/graphs/contributors)">
   <img src="https://avatars.githubusercontent.com/u/61647664?s=60&v=4">
