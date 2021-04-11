@@ -43,7 +43,7 @@ namespace FlightManager.Services
             }
 
             //DateTime input
-            if (model.DateTimeTakeOff < model.DateTimeLanding)
+            if (model.DateTimeTakeOff > model.DateTimeLanding)
             {
                 flight.DateTimeTakeOff = model.DateTimeTakeOff;
                 flight.DateTimeLanding = model.DateTimeLanding;
@@ -135,7 +135,7 @@ namespace FlightManager.Services
                 PlaneType = x.PlaneType,
                 UniquePlaneNumber = x.UniquePlaneNumber,
                 DateTimeTakeOff = x.DateTimeTakeOff,
-                Duration = x.DateTimeTakeOff - x.DateTimeLanding,
+                Duration = x.DateTimeLanding.TimeOfDay,
                 PassengerCapacity = x.PassengersCapacity,
                 BusinessClassCapacity = x.BusinessClassCapacity,
                 Reservations = x.Reservations.Select(r => new ReservationViewModel()

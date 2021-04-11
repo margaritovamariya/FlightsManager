@@ -14,7 +14,7 @@ namespace FlightManager.Services
     /// </summary>
     public class ReservationService : IReservationService
     {
-        private const int PageSize = 25;
+        private const int PageSize = 100;
         private readonly FlightManagerDbContext dbContext;
 
         /// <summary>
